@@ -10,9 +10,9 @@ public class Equipment : Item
     public int Stamina { get; set; }
     public EquipmentType EquipType { get; set; }
 
-    public Equipment(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice, 
+    public Equipment(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice, string sprite,
         int strength, int intellect, int agility, int stamina, EquipmentType equipType)
-        : base(id, name, type, quality, des, capacity, buyPrice, sellPrice)
+        : base(id, name, type, quality, des, capacity, buyPrice, sellPrice, sprite)
     {
         Strength = strength;
         Intellect = intellect;

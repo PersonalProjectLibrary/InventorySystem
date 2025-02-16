@@ -12,13 +12,14 @@ public class Item
     public int Capacity{get; set;}
     public int BuyPrice{get; set;}
     public int SellPrice{get; set;}
+    public string Sprite{get; set;}
 
     public Item()
     {
         ID = -1;
     }
 
-    public Item(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice)
+    public Item(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice, string sprite)
     {
         ID = id;
         Name = name;
@@ -28,6 +29,7 @@ public class Item
         Capacity = capacity;
         BuyPrice = buyPrice;
         SellPrice = sellPrice;
+        Sprite = sprite;
     }
 
     public enum ItemType//物品类型
