@@ -13,6 +13,11 @@ public class Item
     public int BuyPrice{get; set;}
     public int SellPrice{get; set;}
 
+    public Item()
+    {
+        ID = -1;
+    }
+
     public Item(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice)
     {
         ID = id;
