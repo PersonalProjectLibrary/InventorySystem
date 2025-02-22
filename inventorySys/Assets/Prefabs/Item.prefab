@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5720579544338939275}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: Amount
+  m_Name: ItemCountTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -170,3 +170,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56b40026e03faa4e845286f161f9f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemCountText: {fileID: 5720579544338939275}

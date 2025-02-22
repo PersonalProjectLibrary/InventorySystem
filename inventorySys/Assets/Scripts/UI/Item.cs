@@ -1,10 +1,33 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 物品
 /// </summary>
 public class Item:MonoBehaviour
 {
-    
+    public ItemData data{ get; set; }
+    public int ItemCount{ get; set; }
+    public Text itemCountText;
+
+    public Item(ItemData itemData)
+    {
+        data = itemData;
+        ItemCount = 1;
+        itemCountText.text = ItemCount.ToString();
+        Debug.Log("物品初始化成功");
+    }
+
+    public void UpdateItem(int count)
+    {
+        ItemCount = count;
+        itemCountText.text = count.ToString();
+        Debug.Log("物品数量更新成功");
+    }
+
+    public ItemData.ItemType GetItemType()
+    {
+        return data.Type;
+    }
 }

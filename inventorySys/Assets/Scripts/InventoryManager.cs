@@ -34,9 +34,9 @@ public class InventoryManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 解析物品json
+    /// 解析Json配置表获取物品数据
     /// </summary>
-    void ParseItemJson()
+    private void ParseItemJson()
     {
         try
         {
@@ -84,13 +84,27 @@ public class InventoryManager : MonoBehaviour
                         itemDataList.Add(new MaterialData());
                         break;
                 }
-                Debug.Log(name);
+                //Debug.Log(name);
             }
         }
         catch (System.Exception e)
         {
             Debug.LogError($"解析发生错误：{e.Message}");
         }
-        
+    }
+
+    /// <summary>
+    /// 通过ID获取物品数据
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public ItemData GetItemData(int itemId)
+    {
+        foreach (ItemData itemData in itemDataList)
+        {
+            if (itemData.ID == itemId)return itemData;
+        }
+        Debug.LogError($"未能找到ID为{itemId}的物品");
+        return null;
     }
 }
