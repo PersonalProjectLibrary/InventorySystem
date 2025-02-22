@@ -1,8 +1,8 @@
 
 /// <summary>
-/// 装备类
+/// 装备数据类
 /// </summary>
-public class Equipment : Item
+public class EquipmentData : ItemData
 {
     public int Strength { get; set; }
     public int Intellect { get; set; }
@@ -10,7 +10,7 @@ public class Equipment : Item
     public int Stamina { get; set; }
     public EquipmentType EquipType { get; set; }
 
-    public Equipment(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice, string sprite,
+    public EquipmentData(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice, string sprite,
         int strength, int intellect, int agility, int stamina, EquipmentType equipType)
         : base(id, name, type, quality, des, capacity, buyPrice, sellPrice, sprite)
     {

@@ -24,9 +24,9 @@ public class InventoryManager : MonoBehaviour
     #endregion
     
     /// <summary>
-    /// 物品列表
+    /// 物品数据列表
     /// </summary>
-    public List<Item> itemList= new List<Item>();
+    public List<ItemData> itemDataList= new List<ItemData>();
 
     private void Start()
     {
@@ -52,8 +52,8 @@ public class InventoryManager : MonoBehaviour
             {
                 int id = temp["id"].intValue;
                 string name = temp["name"].stringValue;
-                Item.ItemType type = (Item.ItemType)System.Enum.Parse(typeof(Item.ItemType), temp["type"].stringValue);
-                Item.ItemQuality quality = (Item.ItemQuality)System.Enum.Parse(typeof(Item.ItemQuality), temp["quality"].stringValue);
+                ItemData.ItemType type = (ItemData.ItemType)System.Enum.Parse(typeof(ItemData.ItemType), temp["type"].stringValue);
+                ItemData.ItemQuality quality = (ItemData.ItemQuality)System.Enum.Parse(typeof(ItemData.ItemQuality), temp["quality"].stringValue);
                 string description = temp["description"].stringValue;
                 int capacity = temp["capacity"].intValue;
                 int buyPrice = temp["buyPrice"].intValue;
@@ -61,27 +61,27 @@ public class InventoryManager : MonoBehaviour
                 string sprite = temp["sprite"].stringValue;
                 switch (type)
                 {
-                    case Item.ItemType.Consumable:
+                    case ItemData.ItemType.Consumable:
                         int hp = temp["hp"].intValue;
                         int mp = temp["mp"].intValue;
-                        itemList.Add(new Consumable(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, hp, mp));
+                        itemDataList.Add(new ConsumableData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, hp, mp));
                         break;
-                    case Item.ItemType.Equipment:
+                    case ItemData.ItemType.Equipment:
                         int strength = temp["strength"].intValue;
                         int intellect = temp["intellect"].intValue;
                         int agility = temp["agility"].intValue;
                         int stamina = temp["stamina"].intValue;
-                        Equipment.EquipmentType equipType = (Equipment.EquipmentType)System.Enum.Parse(typeof(Equipment.EquipmentType), temp["equipType"].stringValue);
-                        itemList.Add(new Equipment(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite,
+                        EquipmentData.EquipmentType equipType = (EquipmentData.EquipmentType)System.Enum.Parse(typeof(EquipmentData.EquipmentType), temp["equipType"].stringValue);
+                        itemDataList.Add(new EquipmentData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite,
                             strength, intellect, agility, stamina, equipType));
                         break;
-                    case Item.ItemType.Weapon:
+                    case ItemData.ItemType.Weapon:
                         int damage = temp["damage"].intValue;
-                        Weapon.WeaponType weaponType = (Weapon.WeaponType)System.Enum.Parse(typeof(Weapon.WeaponType), temp["weaponType"].stringValue);
-                        itemList.Add(new Weapon(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType));
+                        WeaponData.WeaponType weaponType = (WeaponData.WeaponType)System.Enum.Parse(typeof(WeaponData.WeaponType), temp["weaponType"].stringValue);
+                        itemDataList.Add(new WeaponData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType));
                         break;
-                    case Item.ItemType.Material:
-                        itemList.Add(new Material());
+                    case ItemData.ItemType.Material:
+                        itemDataList.Add(new MaterialData());
                         break;
                 }
                 Debug.Log(name);

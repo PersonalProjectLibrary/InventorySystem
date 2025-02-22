@@ -1,8 +1,8 @@
 
 /// <summary>
-/// 物品基类
+/// 物品数据基类
 /// </summary>
-public class Item
+public class ItemData
 {
     public int ID{get; set;}
     public string Name{get; set;}
@@ -14,12 +14,12 @@ public class Item
     public int SellPrice{get; set;}
     public string Sprite{get; set;}
 
-    public Item()
+    public ItemData()
     {
         ID = -1;
     }
 
-    public Item(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice, string sprite)
+    public ItemData(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice, string sprite)
     {
         ID = id;
         Name = name;
