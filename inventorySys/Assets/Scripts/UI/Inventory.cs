@@ -66,6 +66,7 @@ public class Inventory:MonoBehaviour
             }
             else slot.StoreItem();
         }
+        Debug.Log(itemData.Name + "存储成功");
         return true;
     }
 

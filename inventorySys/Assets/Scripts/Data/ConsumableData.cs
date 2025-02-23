@@ -13,4 +13,10 @@ public class ConsumableData : ItemData
         Hp = hp;
         Mp = mp;
     }
+    public override string GetToolTipText()
+    {
+        string text = base.GetToolTipText();
+        text += string.Format("\n回复生命值：{0}\n回复魔法值：{1}",Hp, Mp);
+        return text;
+    }
 }

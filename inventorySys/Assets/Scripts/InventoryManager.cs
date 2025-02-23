@@ -42,7 +42,7 @@ public class InventoryManager : MonoBehaviour
     {
         InitInventoryMgr();
     }
-
+    
     private void InitItemDataList()
     {
         try
@@ -88,7 +88,7 @@ public class InventoryManager : MonoBehaviour
                         itemDataDic.Add(id, new WeaponData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType));
                         break;
                     case ItemData.ItemType.Material:
-                        itemDataDic.Add(id, new MaterialData());
+                        itemDataDic.Add(id, new MaterialData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite));
                         break;
                 }
                 //Debug.Log(name);
@@ -109,11 +109,11 @@ public class InventoryManager : MonoBehaviour
         return itemDataDic[itemId];
     }
 
-    public void ShowTips(string info)
+    public void ShowItemTips(string info)
     {
         tips.ShowTips(info);
     }
-    public void HideTips()
+    public void HideItemTips()
     {
         tips.HideTips();
     }

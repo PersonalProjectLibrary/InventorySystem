@@ -19,4 +19,12 @@ public class WeaponData : ItemData
         OffHand,
         MainHand
     }
+
+    public override string GetToolTipText()
+    {
+        string text = base.GetToolTipText();
+        string wpType = Constant.WeaponTypeNames[(int)WpType];
+        text += string.Format("\n<color=red>伤害：{0}</color>\n<color=yellow>类型：{1}</color>",Damage, wpType);
+        return text;
+    }
 }

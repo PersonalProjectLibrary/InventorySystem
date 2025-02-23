@@ -35,4 +35,13 @@ public class EquipmentData : ItemData
         Belt,
         OffHand
     }
+
+    public override string GetToolTipText()
+    {
+        string text = base.GetToolTipText();
+        //string equipType = Constant.EquipmentTypeNames[(int)EquipType];
+        //text += string.Format("\n<color=red>力量：{0}</color>\n<color=red>智力：{1}</color>\n<color=red>敏捷：{2}</color>\n<color=red>耐力：{3}</color>\n<color=yellow>类型：{4}</color>", Strength, Intellect, Agility, Stamina, equipType);
+        text += string.Format("\n<color=red>力量：{0}</color>\n<color=red>智力：{1}</color>\n<color=red>敏捷：{2}</color>\n<color=red>耐力：{3}</color>", Strength, Intellect, Agility, Stamina);
+        return text;
+    }
 }

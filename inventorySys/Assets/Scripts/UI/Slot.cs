@@ -1,10 +1,11 @@
 
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// 物品槽
 /// </summary>
-public class Slot:MonoBehaviour
+public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
 {
     public GameObject itemPrefab;
     private GameObject itemGo;
@@ -15,7 +16,6 @@ public class Slot:MonoBehaviour
     {
         return itemCount == 0;
     }
-    
     public void StoreItem(ItemData data)
     {
         if (itemGo == null)// 之前格子里没有物品
@@ -32,16 +32,29 @@ public class Slot:MonoBehaviour
         itemCount++;
         item.UpdateItem(itemCount);
     }
-
     public void RemoveItem()
     {
         itemCount--;
         if(itemCount == 0)Destroy(itemGo);
         else item.UpdateItem(itemCount);
     }
-
     public bool IsFilled()
     {
         return itemCount >= item.selfData.Capacity;
+    }
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!IsEmpty())
+        {
+            InventoryManager.Instance.tips.ShowTips(item.selfData.GetToolTipText());
+        }
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if(!IsEmpty())
+        {
+            InventoryManager.Instance.tips.HideTips();
+        }
     }
 }

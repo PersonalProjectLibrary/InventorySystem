@@ -29,7 +29,7 @@ public class InfoTips : MonoBehaviour
     private void InitTips()
     {
         tipsText = GetComponent<Text>();
-        infoText = GetComponentInChildren<Text>();
+        infoText = transform.Find("TxtContent").GetComponent<Text>();
         canvasGroup = GetComponent<CanvasGroup>();
         smoothing = Constant.TipsAlphaSmoothing;
     }

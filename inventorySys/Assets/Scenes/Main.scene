@@ -970,7 +970,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7269\u54C1\u4FE1\u606F"
+  m_Text: "\u5F00\u5929\u65A7\u7684\u953B\u9020\u79D8\u7C4D"
 --- !u!114 &619787496810909818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,7 +1004,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u7269\u54C1\u4FE1\u606F"
+  m_Text: "\u5F00\u5929\u65A7\u7684\u953B\u9020\u79D8\u7C4D"
 --- !u!224 &1336053746952500852
 RectTransform:
   m_ObjectHideFlags: 0
