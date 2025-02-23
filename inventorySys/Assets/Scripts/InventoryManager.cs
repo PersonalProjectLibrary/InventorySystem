@@ -23,25 +23,19 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
     
-    /// <summary>
-    /// 物品信息提示
-    /// </summary>
     public InfoTips tips{ get; private set; }
-    /// <summary>
-    /// 背包
-    /// </summary>
     public Knapsack knapsack{ get; private set; }
     /// <summary>
-    /// 物品数据列表
+    /// 物品数据列表[配置文件解析得到]
     /// </summary>
-    public List<ItemData> itemDataList= new List<ItemData>();
+    public Dictionary<int, ItemData> itemDataDic = new Dictionary<int, ItemData>();
 
     private void InitInventoryMgr()
     {
         _instance = this;
         tips = InfoTips.Instance;
         knapsack = Knapsack.Instance;
-        ParseItemJson();
+        InitItemDataList();
     }
 
     private void Start()
@@ -49,10 +43,7 @@ public class InventoryManager : MonoBehaviour
         InitInventoryMgr();
     }
 
-    /// <summary>
-    /// 解析Json配置表获取物品数据
-    /// </summary>
-    private void ParseItemJson()
+    private void InitItemDataList()
     {
         try
         {
@@ -80,7 +71,7 @@ public class InventoryManager : MonoBehaviour
                     case ItemData.ItemType.Consumable:
                         int hp = temp["hp"].intValue;
                         int mp = temp["mp"].intValue;
-                        itemDataList.Add(new ConsumableData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, hp, mp));
+                        itemDataDic.Add(id, new ConsumableData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, hp, mp));
                         break;
                     case ItemData.ItemType.Equipment:
                         int strength = temp["strength"].intValue;
@@ -88,16 +79,16 @@ public class InventoryManager : MonoBehaviour
                         int agility = temp["agility"].intValue;
                         int stamina = temp["stamina"].intValue;
                         EquipmentData.EquipmentType equipType = (EquipmentData.EquipmentType)System.Enum.Parse(typeof(EquipmentData.EquipmentType), temp["equipType"].stringValue);
-                        itemDataList.Add(new EquipmentData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite,
-                            strength, intellect, agility, stamina, equipType));
+                        itemDataDic.Add(id, new EquipmentData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite,
+                        strength, intellect, agility, stamina, equipType));
                         break;
                     case ItemData.ItemType.Weapon:
                         int damage = temp["damage"].intValue;
                         WeaponData.WeaponType weaponType = (WeaponData.WeaponType)System.Enum.Parse(typeof(WeaponData.WeaponType), temp["weaponType"].stringValue);
-                        itemDataList.Add(new WeaponData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType));
+                        itemDataDic.Add(id, new WeaponData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType));
                         break;
                     case ItemData.ItemType.Material:
-                        itemDataList.Add(new MaterialData());
+                        itemDataDic.Add(id, new MaterialData());
                         break;
                 }
                 //Debug.Log(name);
@@ -108,19 +99,22 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError($"解析发生错误：{e.Message}");
         }
     }
-
-    /// <summary>
-    /// 通过ID获取物品数据
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public ItemData GetItemData(int itemId)
+    public ItemData GetItemDataById(int itemId)
     {
-        foreach (ItemData itemData in itemDataList)
+        if(!itemDataDic.ContainsKey(itemId))
         {
-            if (itemData.ID == itemId)return itemData;
+            Debug.LogError($"未能找到ID为{itemId}的物品");
+            return null;
         }
-        Debug.LogError($"未能找到ID为{itemId}的物品");
-        return null;
+        return itemDataDic[itemId];
+    }
+
+    public void ShowTips(string info)
+    {
+        tips.ShowTips(info);
+    }
+    public void HideTips()
+    {
+        tips.HideTips();
     }
 }

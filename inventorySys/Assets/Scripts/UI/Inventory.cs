@@ -29,7 +29,7 @@ public class Inventory:MonoBehaviour
 
     public bool StoreItem(int itemId)
     {
-        ItemData itemData = inventoryMgr.GetItemData(itemId);
+        ItemData itemData = inventoryMgr.GetItemDataById(itemId);
         return StoreItem(itemData);
     }
     public bool StoreItem(ItemData itemData)
