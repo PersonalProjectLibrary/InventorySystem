@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using Defective.JSON;
 using UnityEngine;
@@ -24,25 +24,29 @@ public class InventoryManager : MonoBehaviour
     #endregion
     
     /// <summary>
+    /// 物品信息提示
+    /// </summary>
+    public InfoTips tips{ get; private set; }
+    /// <summary>
     /// 背包
     /// </summary>
     public Knapsack knapsack{ get; private set; }
-
     /// <summary>
     /// 物品数据列表
     /// </summary>
     public List<ItemData> itemDataList= new List<ItemData>();
 
-    private void Init()
+    private void InitInventoryMgr()
     {
         _instance = this;
+        tips = InfoTips.Instance;
         knapsack = Knapsack.Instance;
         ParseItemJson();
     }
 
     private void Start()
     {
-        Init();
+        InitInventoryMgr();
     }
 
     /// <summary>
