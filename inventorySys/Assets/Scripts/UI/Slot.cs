@@ -47,14 +47,14 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
     {
         if (!IsEmpty())
         {
-            InventoryManager.Instance.tips.ShowTips(item.selfData.GetToolTipText());
+            InventoryManager.Instance.ShowItemTips(item.selfData.SetTipsText());
         }
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         if(!IsEmpty())
         {
-            InventoryManager.Instance.tips.HideTips();
+            InventoryManager.Instance.HideItemTips();
         }
     }
 }

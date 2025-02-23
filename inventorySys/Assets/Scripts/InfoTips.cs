@@ -22,10 +22,8 @@ public class InfoTips : MonoBehaviour
     private float targetAlpha=0;
     private float smoothing = 1f;
     private CanvasGroup canvasGroup;
-
     private Text tipsText;
     private Text infoText;
-
     private void InitTips()
     {
         tipsText = GetComponent<Text>();
@@ -37,7 +35,6 @@ public class InfoTips : MonoBehaviour
     {
         InitTips();
     }
-
     private void Update()
     {
         if (canvasGroup.alpha != targetAlpha)
@@ -49,16 +46,19 @@ public class InfoTips : MonoBehaviour
             }
         }
     }
-
     public void ShowTips(string info)
     {
         tipsText.text = info;
         infoText.text = info;
         targetAlpha = 1;
     }
-
     public void HideTips()
     {
         targetAlpha = 0;
+    }
+
+    public void SetLocalPosition(Vector3 pos)
+    {
+        transform.localPosition = pos;
     }
 }

@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 /// <summary>
 /// 常量类
 /// </summary>
@@ -13,6 +15,8 @@ public class Constant
     /// 提示信息透明度平滑度
     /// </summary>
     public static float TipsAlphaSmoothing = 5f;
+
+    public static Vector2 TipsPosOffset = new Vector2(45, 45); 
 
     //物品信息
     public static string[] ItemTypeNames = { "消耗品", "装备","武器", "材料" };

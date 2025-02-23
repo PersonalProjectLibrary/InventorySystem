@@ -9,9 +9,9 @@ public class MaterialData : ItemData
         
     }
     
-    public override string GetToolTipText()
+    public override string SetTipsText()
     {
-        string text = base.GetToolTipText();
+        string text = base.SetTipsText();
         text += string.Format("\n<color=red>类型：{0}</color>","材料");
         return text;
     }

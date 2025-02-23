@@ -18,14 +18,14 @@ public class Item : MonoBehaviour
         itemCountText.text = ItemCount.ToString();
         Sprite sprite = Resources.Load<Sprite>(selfData.Sprite);
         GetComponent<Image>().sprite = sprite;
-        Debug.Log("物品初始化成功");
+        //Debug.Log("物品初始化成功");
     }
 
     public void UpdateItem(int count)
     {
         ItemCount = count;
         itemCountText.text = count.ToString();
-        Debug.Log("物品数量更新成功");
+        //Debug.Log("物品数量更新成功");
     }
 
     public ItemData.ItemType GetItemType()

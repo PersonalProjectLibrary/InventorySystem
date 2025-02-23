@@ -20,9 +20,9 @@ public class WeaponData : ItemData
         MainHand
     }
 
-    public override string GetToolTipText()
+    public override string SetTipsText()
     {
-        string text = base.GetToolTipText();
+        string text = base.SetTipsText();
         string wpType = Constant.WeaponTypeNames[(int)WpType];
         text += string.Format("\n<color=red>伤害：{0}</color>\n<color=yellow>类型：{1}</color>",Damage, wpType);
         return text;

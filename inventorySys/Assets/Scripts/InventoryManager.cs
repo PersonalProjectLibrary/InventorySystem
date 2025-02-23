@@ -23,24 +23,39 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
     
-    public InfoTips tips{ get; private set; }
-    public Knapsack knapsack{ get; private set; }
     /// <summary>
     /// 物品数据列表[配置文件解析得到]
     /// </summary>
     public Dictionary<int, ItemData> itemDataDic = new Dictionary<int, ItemData>();
 
+    public Knapsack knapsack{ get; private set; }
+
+    public InfoTips tips{ get; private set; }
+    private bool isTipsShow = false;
+    private RectTransform canvasRect;
+    
     private void InitInventoryMgr()
     {
         _instance = this;
         tips = InfoTips.Instance;
         knapsack = Knapsack.Instance;
+        canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
         InitItemDataList();
     }
 
     private void Start()
     {
         InitInventoryMgr();
+    }
+
+    public void Update()
+    {
+        if (isTipsShow)
+        {
+            Vector2 position;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
+            tips.SetLocalPosition(position + Constant.TipsPosOffset);
+        }
     }
     
     private void InitItemDataList()
@@ -111,10 +126,12 @@ public class InventoryManager : MonoBehaviour
 
     public void ShowItemTips(string info)
     {
+        isTipsShow = true;
         tips.ShowTips(info);
     }
     public void HideItemTips()
     {
+        isTipsShow = false;
         tips.HideTips();
     }
 }

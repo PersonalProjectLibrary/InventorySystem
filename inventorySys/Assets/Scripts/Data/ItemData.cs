@@ -50,7 +50,7 @@ public class ItemData
         Artifact
     }
 
-    public virtual string GetToolTipText()
+    public virtual string SetTipsText()
     {
         string typeStr = Constant.ItemTypeNames[(int)Type];
         string color = Constant.QualityColors[(int)Quality];
