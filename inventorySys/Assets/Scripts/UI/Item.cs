@@ -7,10 +7,10 @@ using UnityEngine.UI;
 /// </summary>
 public class Item : MonoBehaviour
 {
+    public Text itemCountText;
     public ItemData selfData{ get; set; }
     public int ItemCount{ get; set; }
-    public Text itemCountText;
-
+    
     public void InitItem(ItemData data )
     {
         selfData = data;
