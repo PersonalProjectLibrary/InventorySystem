@@ -5,17 +5,19 @@ using UnityEngine.UI;
 /// <summary>
 /// 物品
 /// </summary>
-public class Item:MonoBehaviour
+public class Item : MonoBehaviour
 {
-    public ItemData data{ get; set; }
+    public ItemData selfData{ get; set; }
     public int ItemCount{ get; set; }
     public Text itemCountText;
 
-    public Item(ItemData itemData)
+    public void InitItem(ItemData data )
     {
-        data = itemData;
+        selfData = data;
         ItemCount = 1;
         itemCountText.text = ItemCount.ToString();
+        Sprite sprite = Resources.Load<Sprite>(selfData.Sprite);
+        GetComponent<Image>().sprite = sprite;
         Debug.Log("物品初始化成功");
     }
 
@@ -28,6 +30,6 @@ public class Item:MonoBehaviour
 
     public ItemData.ItemType GetItemType()
     {
-        return data.Type;
+        return selfData.Type;
     }
 }

@@ -15,22 +15,21 @@ public class Slot:MonoBehaviour
     {
         return itemCount == 0;
     }
-
-    public void StoreItem()
-    {
-        itemCount++;
-        item.UpdateItem(itemCount);
-    }
     
-    public void StoreItem(Item data)
+    public void StoreItem(ItemData data)
     {
         if (itemGo == null)// 之前格子里没有物品
         {
             itemGo = Instantiate(itemPrefab, transform);
+            itemGo.transform.localPosition = Vector3.zero;
             item = itemGo.GetComponent<Item>();
-            item = data;
+            item.InitItem(data);
         }
-        else itemCount++;// 格子里物品数量加1
+        StoreItem();
+    }
+    public void StoreItem()
+    {
+        itemCount++;
         item.UpdateItem(itemCount);
     }
 
@@ -43,6 +42,6 @@ public class Slot:MonoBehaviour
 
     public bool IsFilled()
     {
-        return itemCount >= item.data.Capacity;
+        return itemCount >= item.selfData.Capacity;
     }
 }

@@ -24,13 +24,25 @@ public class InventoryManager : MonoBehaviour
     #endregion
     
     /// <summary>
+    /// 背包
+    /// </summary>
+    public Knapsack knapsack{ get; private set; }
+
+    /// <summary>
     /// 物品数据列表
     /// </summary>
     public List<ItemData> itemDataList= new List<ItemData>();
 
+    private void Init()
+    {
+        _instance = this;
+        knapsack = Knapsack.Instance;
+        ParseItemJson();
+    }
+
     private void Start()
     {
-        ParseItemJson();
+        Init();
     }
 
     /// <summary>

@@ -27,12 +27,12 @@ public class Inventory:MonoBehaviour
         }
     }
 
-    protected bool StoreItem(int itemId)
+    public bool StoreItem(int itemId)
     {
         ItemData itemData = inventoryMgr.GetItemData(itemId);
         return StoreItem(itemData);
     }
-    protected bool StoreItem(ItemData itemData)
+    public bool StoreItem(ItemData itemData)
     {
         if (itemData == null)
         {
@@ -49,7 +49,7 @@ public class Inventory:MonoBehaviour
                 Debug.Log("没有空的物品槽");
                 return false;
             }
-            slot.StoreItem(new Item(itemData));
+            slot.StoreItem(itemData);
         }
         else
         {
@@ -62,7 +62,7 @@ public class Inventory:MonoBehaviour
                     Debug.Log("没有空的物品槽");
                     return false;
                 }
-                slot.StoreItem(new Item(itemData));
+                slot.StoreItem(itemData);
             }
             else slot.StoreItem();
         }
@@ -87,7 +87,7 @@ public class Inventory:MonoBehaviour
         foreach (Slot slot in slotList)
         {
             // 如果格子里有物品，并且物品ID相同，并且物品数量没有达到上限
-            if (slot.item != null && slot.item.data.ID == itemData.ID && !slot.IsFilled())
+            if (slot.item != null && slot.item.selfData.ID == itemData.ID && !slot.IsFilled())
             {
                 return slot;
             }
