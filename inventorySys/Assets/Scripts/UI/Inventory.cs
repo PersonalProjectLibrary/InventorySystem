@@ -49,7 +49,7 @@ public class Inventory:MonoBehaviour
                 Debug.Log("没有空的物品槽");
                 return false;
             }
-            slot.StoreItem(itemData);
+            slot.InitStoreItem(itemData);
         }
         else
         {
@@ -62,9 +62,9 @@ public class Inventory:MonoBehaviour
                     Debug.Log("没有空的物品槽");
                     return false;
                 }
-                slot.StoreItem(itemData);
+                slot.InitStoreItem(itemData);
             }
-            else slot.StoreItem();
+            else slot.UpdateItem(slot.item.ItemCount + 1);
         }
         //Debug.Log(itemData.Name + "存储成功");
         return true;

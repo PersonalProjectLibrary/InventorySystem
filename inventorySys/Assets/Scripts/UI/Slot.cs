@@ -11,8 +11,6 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
     public GameObject itemPrefab;
     private GameObject itemGo;
     public Item item{ get; set; }
-    private int itemCount = 0;
-
     public void Start()
     {
         inventoryMgr = InventoryManager.Instance;
@@ -20,9 +18,9 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
 
     public bool IsEmpty()
     {
-        return itemCount == 0;
+        return item==null?true:item.ItemCount==0;
     }
-    public void StoreItem(ItemData data)
+    public void InitStoreItem(ItemData data)
     {
         if (itemGo == null)// 之前格子里没有物品
         {
@@ -31,28 +29,21 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
             item = itemGo.GetComponent<Item>();
             item.InitItem(data);
         }
-        StoreItem();
+        UpdateItem(1);
     }
-    public void StoreItem()
+    public void UpdateItem(int count)
     {
-        itemCount++;
-        item.UpdateItem(itemCount);
+        item.UpdateItemCount(count);
+        if(item.ItemCount == 0)ClearItem();
     }
-    public void RemoveItem()
+    public void ClearItem()
     {
-        itemCount--;
-        if(itemCount == 0)Destroy(itemGo);
-        else item.UpdateItem(itemCount);
-    }
-    public void ClearSlot()
-    {
-        itemCount = 0;
         item = null;
         if(itemGo != null)Destroy(itemGo);
     }
     public bool IsFilled()
     {
-        return itemCount >= item.selfData.Capacity;
+        return item.ItemCount >= item.selfData.Capacity;
     }
     
     public void OnPointerEnter(PointerEventData eventData)
@@ -75,15 +66,18 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
         {
             if(!InventoryManager.Instance.IsPickedItem)//当前没有选中物品
             {
-                if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键
+                if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键，取一半数量的物品
                 {
+                    int pickCount = (item.ItemCount + 1) / 2;
+                    inventoryMgr.PickUpItem(item, pickCount);
+
+                    if(item.ItemCount == pickCount)ClearItem();
+                    else item.UpdateItemCount(item.ItemCount-pickCount);
                 }
-                else
+                else// 没有按下Ctrl键，取全部物品
                 {
-                    //将当前物品放到鼠标上
-                    inventoryMgr.PickUpItem(item, itemCount);
-                    //清空当前格子
-                    ClearSlot();
+                    inventoryMgr.PickUpItem(item, item.ItemCount);
+                    ClearItem();
                 }
             }
         }

@@ -43,7 +43,6 @@ public class InventoryManager : MonoBehaviour
     public bool IsPickedItem
     {
         get { return isPickedItem; }
-        set{ isPickedItem = value; }
     }
 
     private void InitInventoryMgr()
@@ -158,7 +157,7 @@ public class InventoryManager : MonoBehaviour
     public void PickUpItem(Item item, int itemCount)
     {
         pickedItem.InitItem(item.selfData);
-        pickedItem.UpdateItem(itemCount);
+        pickedItem.UpdateItemCount(itemCount);
         isPickedItem = true;
         pickedItem.Show();
     }
