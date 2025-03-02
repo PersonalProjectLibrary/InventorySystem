@@ -15,7 +15,6 @@ public class Constant
     /// 提示信息透明度平滑度
     /// </summary>
     public static float TipsAlphaSmoothing = 5f;
-
     public static Vector2 TipsPosOffset = new Vector2(45, 45); 
 
     //物品信息
@@ -24,5 +23,10 @@ public class Constant
     public static string[] QualityColors = { "white", "lime", "navy", "magenta", "orange", "red" };
     public static string[] WeaponTypeNames = { "副手", "主手"};
     public static string[] EquipmentTypeNames = { "头盔","项链", "胸甲", "戒指","护腿", "护腕", "靴子","饰品","护肩", "腰带", "副手" };
+
+    //物品大小动画数值
+    public static float ItemAnimationScaleSpeed = 5f;
+    public static Vector3 ItemDefaultScale = new Vector3(1, 1, 1);
+    public static Vector3 ItemAnimationScale = new Vector3(1.5f, 1.5f, 1.5f);
 
 }
