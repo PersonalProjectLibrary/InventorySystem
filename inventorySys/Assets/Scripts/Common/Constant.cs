@@ -23,6 +23,6 @@ public class Constant
     public static string[] QualityNames = { "普通", "非凡", "稀有", "史诗", "传说", "神器" };
     public static string[] QualityColors = { "white", "lime", "navy", "magenta", "orange", "red" };
     public static string[] WeaponTypeNames = { "副手", "主手"};
-    //public static string[] EquipmentTypeNames = { "头盔","项链", "胸甲", "戒指","护腿", "护腕", "靴子","饰品","护肩", "腰带", "副手" };
+    public static string[] EquipmentTypeNames = { "头盔","项链", "胸甲", "戒指","护腿", "护腕", "靴子","饰品","护肩", "腰带", "副手" };
 
 }

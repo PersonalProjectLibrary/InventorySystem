@@ -39,7 +39,8 @@ public class EquipmentData : ItemData
     public override string SetTipsText()
     {
         string text = base.SetTipsText();
-        text += string.Format("\n<color=red>力量：{0}</color>\n<color=red>智力：{1}</color>\n<color=red>敏捷：{2}</color>\n<color=red>耐力：{3}</color>", Strength, Intellect, Agility, Stamina);
+        string typeName = Constant.EquipmentTypeNames[(int)EquipType];
+        text += string.Format("\n<color=navy>装备类型：{4}</color>\n<color=red>力量：{0}</color>\n<color=yellow>智力：{1}</color>\n<color=green>敏捷：{2}</color>\n<color=blue>耐力：{3}</color>", Strength, Intellect, Agility, Stamina, typeName);
         return text;
     }
 }
