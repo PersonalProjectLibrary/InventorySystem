@@ -27,19 +27,33 @@ public class InventoryManager : MonoBehaviour
     /// 物品数据列表[配置文件解析得到]
     /// </summary>
     public Dictionary<int, ItemData> itemDataDic = new Dictionary<int, ItemData>();
-
+    //背包
     public Knapsack knapsack{ get; private set; }
-
+    //物品信息提示框
     public InfoTips tips{ get; private set; }
     private bool isTipsShow = false;
     private RectTransform canvasRect;
-    
+    //当前选中的物品
+    private Item pickedItem;
+    public Item PickedItem
+    {
+        get { return pickedItem; }
+    }
+    private bool isPickedItem = false;
+    public bool IsPickedItem
+    {
+        get { return isPickedItem; }
+        set{ isPickedItem = value; }
+    }
+
     private void InitInventoryMgr()
     {
         _instance = this;
         tips = InfoTips.Instance;
         knapsack = Knapsack.Instance;
         canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
+        pickedItem = GameObject.Find("PickedItem").GetComponent<Item>();
+        pickedItem.Hide();
         InitItemDataList();
     }
 
@@ -55,6 +69,12 @@ public class InventoryManager : MonoBehaviour
             Vector2 position;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
             tips.SetLocalPosition(position + Constant.TipsPosOffset);
+        }
+        if (isPickedItem)
+        {
+            Vector2 position;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
+            pickedItem.SetLocalPosition(position);
         }
     }
     
@@ -133,5 +153,13 @@ public class InventoryManager : MonoBehaviour
     {
         isTipsShow = false;
         tips.HideTips();
+    }
+
+    public void PickUpItem(Item item, int itemCount)
+    {
+        pickedItem.InitItem(item.selfData);
+        pickedItem.UpdateItem(itemCount);
+        isPickedItem = true;
+        pickedItem.Show();
     }
 }

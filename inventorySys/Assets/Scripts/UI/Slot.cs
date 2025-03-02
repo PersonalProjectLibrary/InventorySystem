@@ -5,12 +5,18 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// 物品槽
 /// </summary>
-public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
+public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler
 {
+    private InventoryManager inventoryMgr;
     public GameObject itemPrefab;
     private GameObject itemGo;
     public Item item{ get; set; }
     private int itemCount = 0;
+
+    public void Start()
+    {
+        inventoryMgr = InventoryManager.Instance;
+    }
 
     public bool IsEmpty()
     {
@@ -38,6 +44,12 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
         if(itemCount == 0)Destroy(itemGo);
         else item.UpdateItem(itemCount);
     }
+    public void ClearSlot()
+    {
+        itemCount = 0;
+        item = null;
+        if(itemGo != null)Destroy(itemGo);
+    }
     public bool IsFilled()
     {
         return itemCount >= item.selfData.Capacity;
@@ -55,6 +67,25 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
         if(!IsEmpty())
         {
             InventoryManager.Instance.HideItemTips();
+        }
+    }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if(!IsEmpty())//当前格子有物品
+        {
+            if(!InventoryManager.Instance.IsPickedItem)//当前没有选中物品
+            {
+                if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键
+                {
+                }
+                else
+                {
+                    //将当前物品放到鼠标上
+                    inventoryMgr.PickUpItem(item, itemCount);
+                    //清空当前格子
+                    ClearSlot();
+                }
+            }
         }
     }
 }

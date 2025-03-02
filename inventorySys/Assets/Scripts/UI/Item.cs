@@ -27,9 +27,28 @@ public class Item : MonoBehaviour
         itemCountText.text = count.ToString();
         //Debug.Log("物品数量更新成功");
     }
-
-    public ItemData.ItemType GetItemType()
+    public void ExChangeItem(Item item)
     {
-        return selfData.Type;
+        ItemData tempData = item.selfData;
+        int tempCount = item.ItemCount;
+        item.InitItem(selfData);
+        item.UpdateItem(ItemCount);
+        
+        InitItem(tempData);
+        UpdateItem(tempCount);
+        //Debug.Log("物品交换成功");
+    }
+    public void SetLocalPosition(Vector3 position)
+    {
+        transform.localPosition = position;
+    }
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
     }
 }
