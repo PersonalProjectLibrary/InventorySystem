@@ -160,5 +160,8 @@ public class InventoryManager : MonoBehaviour
         pickedItem.UpdateItemCount(itemCount);
         isPickedItem = true;
         pickedItem.Show();
+        
+        isTipsShow = false;
+        tips.HideTips();
     }
 }
