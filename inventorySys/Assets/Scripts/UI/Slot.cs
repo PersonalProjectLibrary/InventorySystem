@@ -66,20 +66,51 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
         {
             if(!InventoryManager.Instance.IsPickedItem)//当前没有选中物品
             {
-                if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键，取一半数量的物品
+                PickItem();
+            }
+            else//当前有选中物品
+            {
+                if(item.selfData.ID == inventoryMgr.PickedItem.selfData.ID)//当前选中物品和当前格子物品相同
                 {
-                    int pickCount = (item.ItemCount + 1) / 2;
-                    inventoryMgr.PickUpItem(item, pickCount);
-
-                    if(item.ItemCount == pickCount)ClearItem();
-                    else item.UpdateItemCount(item.ItemCount-pickCount);
+                    if(!IsFilled())//当前格子物品未满
+                    {
+                        if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键,放下一个物品
+                        {
+                            inventoryMgr.UpdatePickedItem(inventoryMgr.PickedItem.ItemCount-1);
+                            UpdateItem(item.ItemCount+1);
+                        }
+                        else// 放下所有物品
+                        {
+                            int totalCount = item.ItemCount + inventoryMgr.PickedItem.ItemCount;
+                            int slotItemCount = totalCount < item.selfData.Capacity ? totalCount:item.selfData.Capacity;
+                            inventoryMgr.UpdatePickedItem(totalCount-slotItemCount);
+                            UpdateItem(slotItemCount);
+                        }
+                    }
                 }
-                else// 没有按下Ctrl键，取全部物品
+                else//当前选中物品和当前格子物品不同，进行交换
                 {
-                    inventoryMgr.PickUpItem(item, item.ItemCount);
-                    ClearItem();
                 }
             }
         }
     }
+
+    private void PickItem()// 拾取物品
+    {
+        if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键，取一半数量的物品
+        {
+            int pickCount = (item.ItemCount + 1) / 2;
+            inventoryMgr.PickUpItem(item, pickCount);
+
+            if(item.ItemCount == pickCount)ClearItem();
+            else item.UpdateItemCount(item.ItemCount-pickCount);
+        }
+        else// 没有按下Ctrl键，取全部物品
+        {
+            inventoryMgr.PickUpItem(item, item.ItemCount);
+            ClearItem();
+        }
+    }
+
+
 }
