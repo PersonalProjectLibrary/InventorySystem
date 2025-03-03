@@ -7,9 +7,10 @@ using UnityEngine;
 public class Constant
 {
     /// <summary>
-    /// 背包格子数量
+    /// 格子数量
     /// </summary>
     public static int KnapsackSlotCount = 20;
+    public static int ChestSlotCount = 8;
 
     /// <summary>
     /// 提示信息透明度平滑度
