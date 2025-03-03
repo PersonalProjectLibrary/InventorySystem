@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Defective.JSON;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// 物品管理类
@@ -71,6 +72,23 @@ public class InventoryManager : MonoBehaviour
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
             PickedItem.SetLocalPosition(position);
         }
+
+        //物品丢弃处理
+        if (isPickedItem && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject(-1))
+        {
+            isPickedItem = false;
+            PickedItem.Hide();
+        }
+    }
+
+    //射线检测判断鼠标是否在UI上
+    bool IsPointerOverUI()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = Input.mousePosition;
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
     
     private void InitItemDataList()
