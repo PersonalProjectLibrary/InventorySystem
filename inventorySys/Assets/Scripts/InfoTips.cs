@@ -19,7 +19,7 @@ public class InfoTips : MonoBehaviour
     }
     #endregion
 
-    private float targetAlpha=0;
+    private float targetAlpha;
     private float smoothing = 1f;
     private CanvasGroup canvasGroup;
     private Text tipsText;
@@ -29,7 +29,8 @@ public class InfoTips : MonoBehaviour
         tipsText = GetComponent<Text>();
         infoText = transform.Find("TxtContent").GetComponent<Text>();
         canvasGroup = GetComponent<CanvasGroup>();
-        smoothing = Constant.TipsAlphaSmoothing;
+        targetAlpha = Constant.HideAlpha;
+        smoothing = Constant.AlphaSmoothing;
     }
     private void Awake()
     {
@@ -50,11 +51,11 @@ public class InfoTips : MonoBehaviour
     {
         tipsText.text = info;
         infoText.text = info;
-        targetAlpha = 1;
+        targetAlpha = Constant.ShowAlpha;
     }
     public void HideTips()
     {
-        targetAlpha = 0;
+        targetAlpha = Constant.HideAlpha;
     }
 
     public void SetLocalPosition(Vector3 pos)

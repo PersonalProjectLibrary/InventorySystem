@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 /// <summary>
@@ -6,17 +5,17 @@ using UnityEngine;
 /// </summary>
 public class Constant
 {
-    /// <summary>
-    /// 格子数量
-    /// </summary>
+    // 面板显示掩藏设置
+    public static float ShowAlpha =1;
+    public static float HideAlpha = 0;
+    public static float AlphaSmoothing = 5f;
+
+    // 提示面板与目标位置的偏移量
+    public static Vector2 TipsPosOffset = new Vector2(45, 45); 
+
+    // 背包格子数量
     public static int KnapsackSlotCount = 20;
     public static int ChestSlotCount = 8;
-
-    /// <summary>
-    /// 提示信息透明度平滑度
-    /// </summary>
-    public static float TipsAlphaSmoothing = 5f;
-    public static Vector2 TipsPosOffset = new Vector2(45, 45); 
 
     //物品信息
     public static string[] ItemTypeNames = { "消耗品", "装备","武器", "材料" };

@@ -6,29 +6,45 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
-
+    private InventoryManager inventoryMgr
+    {
+        get
+        {
+            return InventoryManager.Instance;
+        }
+    }
 
     void Update()
     {
-        // 按下G键，给背包添加一个随机物品
-        if (Input.GetKeyDown(KeyCode.G))
+        // 背包显示时，按下B、C键，显示/隐藏背包、箱子
+        if(Input.GetKeyDown(KeyCode.B))
         {
-            InventoryManager.Instance.knapsack.StoreItem(Random.Range(1, 3));
+            inventoryMgr.knapsack.SwitchDisplay();
         }
-        // 按下T键，给背包添加一个随机装备
-        if (Input.GetKeyDown(KeyCode.T))
+        else if(Input.GetKeyDown(KeyCode.C))
         {
-            InventoryManager.Instance.knapsack.StoreItem(Random.Range(3, 13));
+            inventoryMgr.chest.SwitchDisplay();
         }
-        // 按下U键，给背包添加一个随机武器
-        if (Input.GetKeyDown(KeyCode.U))
+
+        // 背包显示时，按下I、E、W、M键，给背包添加一个随机物品
+        if(inventoryMgr.knapsack.CanvasGroup.alpha==Constant.ShowAlpha)
         {
-            InventoryManager.Instance.knapsack.StoreItem(Random.Range(13, 15));
-        }
-        // 按下I键，给背包添加一个随机材料
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            InventoryManager.Instance.knapsack.StoreItem(Random.Range(15, 18));
+            if (Input.GetKeyDown(KeyCode.I))//添加随机物品
+            {
+                inventoryMgr.knapsack.StoreItem(Random.Range(1, 3));
+            }
+            else if (Input.GetKeyDown(KeyCode.E))//添加随机装备
+            {
+                inventoryMgr.knapsack.StoreItem(Random.Range(3, 13));
+            }
+            else if (Input.GetKeyDown(KeyCode.W))//添加随机武器
+            {
+                inventoryMgr.knapsack.StoreItem(Random.Range(13, 15));
+            }
+            else if (Input.GetKeyDown(KeyCode.M))//添加随机材料
+            {
+                inventoryMgr.knapsack.StoreItem(Random.Range(15, 18));
+            }
         }
     }
 }

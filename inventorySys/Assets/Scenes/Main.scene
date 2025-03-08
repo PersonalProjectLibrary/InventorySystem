@@ -776,6 +776,7 @@ GameObject:
   - component: {fileID: 1147730723}
   - component: {fileID: 1147730722}
   - component: {fileID: 1147730724}
+  - component: {fileID: 1147730725}
   m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: ChestPanel
@@ -857,6 +858,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotParent: {fileID: 368861542}
   slotPrefab: {fileID: 4946179029823159013, guid: ae909e80bed10614194faf2ebf77c3ff, type: 3}
+--- !u!225 &1147730725
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147730719}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1294712890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,6 +1031,7 @@ GameObject:
   - component: {fileID: 1818776477}
   - component: {fileID: 1818776476}
   - component: {fileID: 1818776478}
+  - component: {fileID: 1818776479}
   m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: KnapsackPanel
@@ -1099,6 +1113,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotParent: {fileID: 180234041}
   slotPrefab: {fileID: 4946179029823159013, guid: ae909e80bed10614194faf2ebf77c3ff, type: 3}
+--- !u!225 &1818776479
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818776474}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1980326296
 GameObject:
   m_ObjectHideFlags: 0

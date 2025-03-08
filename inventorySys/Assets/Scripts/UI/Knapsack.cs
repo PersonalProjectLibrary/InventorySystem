@@ -23,13 +23,7 @@ public class Knapsack : Inventory
 
     protected override void InitInventory()
     {
-        base.InitInventory();
         slotCount = Constant.KnapsackSlotCount;
-        InstanticeSlot();
-    }
-
-    private void Start()
-    {
-        InitInventory();
+        base.InitInventory();
     }
 }

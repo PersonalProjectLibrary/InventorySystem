@@ -30,6 +30,7 @@ public class InventoryManager : MonoBehaviour
     public Dictionary<int, ItemData> itemDataDic = new Dictionary<int, ItemData>();
     //背包
     public Knapsack knapsack{ get; private set; }
+    public Chest chest{ get; private set; }
     //物品信息提示框
     public InfoTips tips{ get; private set; }
     private bool isTipsShow = false;
@@ -47,6 +48,7 @@ public class InventoryManager : MonoBehaviour
         _instance = this;
         tips = InfoTips.Instance;
         knapsack = Knapsack.Instance;
+        chest = Chest.Instance;
         canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
         PickedItem = GameObject.Find("PickedItem").GetComponent<Item>();
         PickedItem.Hide();
