@@ -32,7 +32,7 @@ public class Inventory:MonoBehaviour
     {
         inventoryMgr = InventoryManager.Instance;
         canvasGroup = GetComponent<CanvasGroup>();
-        targetAlpha = Constant.ShowAlpha;
+        HideInventory();
     }
     protected void InstanticeSlot()
     {

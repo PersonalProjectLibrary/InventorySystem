@@ -76,7 +76,8 @@ public class InventoryManager : MonoBehaviour
         }
 
         //物品丢弃处理
-        if (isPickedItem && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject(-1))
+        if (isPickedItem && Input.GetMouseButtonDown(0) && !IsPointerOverUI(true))
+        //if (isPickedItem && Input.GetMouseButtonDown(0) && !IsPointerOverUI())
         {
             isPickedItem = false;
             PickedItem.Hide();
@@ -84,7 +85,11 @@ public class InventoryManager : MonoBehaviour
     }
 
     //射线检测判断鼠标是否在UI上
-    bool IsPointerOverUI()
+    private bool IsPointerOverUI(bool isCheckTouch)
+    {
+        return isCheckTouch?EventSystem.current.IsPointerOverGameObject(-1):EventSystem.current.IsPointerOverGameObject();
+    }
+    private bool IsPointerOverUI()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
         eventDataCurrentPosition.position = Input.mousePosition;
