@@ -34,7 +34,7 @@ public class Inventory:MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
         HideInventory();
     }
-    protected void InstanticeSlot()
+    protected virtual void InstanticeSlot()
     {
         for (int i = 0; i < slotCount; i++)
         {

@@ -25,6 +25,10 @@ public class Player : MonoBehaviour
         {
             inventoryMgr.chest.SwitchDisplay();
         }
+        else if(Input.GetKeyDown(KeyCode.Q))// 显示/隐藏装备栏
+        {
+            inventoryMgr.equipBag.SwitchDisplay();
+        }
 
         // 背包显示时，按下I、E、W、M键，给背包添加一个随机物品
         if(inventoryMgr.knapsack.CanvasGroup.alpha==Constant.ShowAlpha)

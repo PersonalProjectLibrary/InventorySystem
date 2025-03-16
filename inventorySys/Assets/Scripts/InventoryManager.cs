@@ -31,6 +31,7 @@ public class InventoryManager : MonoBehaviour
     //背包
     public Knapsack knapsack{ get; private set; }
     public Chest chest{ get; private set; }
+    public EquipBag equipBag{ get; private set; }
     //物品信息提示框
     public InfoTips tips{ get; private set; }
     private bool isTipsShow = false;
@@ -49,6 +50,8 @@ public class InventoryManager : MonoBehaviour
         tips = InfoTips.Instance;
         knapsack = Knapsack.Instance;
         chest = Chest.Instance;
+        equipBag = EquipBag.Instance;
+        
         canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
         PickedItem = GameObject.Find("PickedItem").GetComponent<Item>();
         PickedItem.Hide();
@@ -133,8 +136,8 @@ public class InventoryManager : MonoBehaviour
                         int intellect = temp["intellect"].intValue;
                         int agility = temp["agility"].intValue;
                         int stamina = temp["stamina"].intValue;
-                        EquipmentData.EquipmentType equipType = (EquipmentData.EquipmentType)System.Enum.Parse(typeof(EquipmentData.EquipmentType), temp["equipType"].stringValue);
-                        itemDataDic.Add(id, new EquipmentData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite,
+                        EquipData.EquipType equipType = (EquipData.EquipType)System.Enum.Parse(typeof(EquipData.EquipType), temp["equipType"].stringValue);
+                        itemDataDic.Add(id, new EquipData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite,
                         strength, intellect, agility, stamina, equipType));
                         break;
                     case ItemData.ItemType.Weapon:
