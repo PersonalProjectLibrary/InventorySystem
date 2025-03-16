@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class EquipBag : Inventory
@@ -19,6 +18,10 @@ public class EquipBag : Inventory
     }
     #endregion
 
+    //武器存放位置
+    private  EquipSlot mainHandSlot;
+    private  EquipSlot offHandSlot;
+
     protected override void InitInventory()
     {
         slotCount = Constant.EquipSlotCount;
@@ -33,8 +36,19 @@ public class EquipBag : Inventory
             slotList.Add(slotGo.GetComponent<EquipSlot>());
             EquipSlot slot = slotList[i] as EquipSlot;
             slot.equipType = (EquipData.EquipType)i;
-            slot.equipName.text = Constant.EquipmentTypeNames[i];
-            slotGo.name = $"{slot.equipType}Slot";
+            if(i == 0)
+            {
+                slot.equipName.text = "武器";
+                slotGo.name = "WeaponSlot";
+                mainHandSlot = slot;
+            }
+            else
+            {
+                slot.equipName.text = Constant.EquipTypeNames[i];
+                slotGo.name = $"{slot.equipType}Slot";
+                if((EquipData.EquipType)i == EquipData.EquipType.OffHand)offHandSlot = slot;
+            }
+            
         }
     }
 }
