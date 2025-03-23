@@ -38,10 +38,10 @@ public class InventoryManager : MonoBehaviour
     private RectTransform canvasRect;
     //当前选中的物品
     public Item PickedItem{ get; private set; }
-    private bool isPickedItem = false;
-    public bool IsPickedItem
+    private bool isPicked = false;
+    public bool IsPicked
     {
-        get { return isPickedItem; }
+        get { return isPicked; }
     }
 
     private void InitInventoryMgr()
@@ -71,7 +71,7 @@ public class InventoryManager : MonoBehaviour
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
             tips.SetLocalPosition(position + Constant.TipsPosOffset);
         }
-        if (isPickedItem)
+        if (isPicked)
         {
             Vector2 position;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
@@ -79,10 +79,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         //物品丢弃处理
-        if (isPickedItem && Input.GetMouseButtonDown(0) && !IsPointerOverUI(true))
+        if (isPicked && Input.GetMouseButtonDown(0) && !IsPointerOverUI(true))
         //if (isPickedItem && Input.GetMouseButtonDown(0) && !IsPointerOverUI())
         {
-            isPickedItem = false;
+            isPicked = false;
             PickedItem.Hide();
         }
     }
@@ -182,7 +182,7 @@ public class InventoryManager : MonoBehaviour
     {
         PickedItem.InitItem(item.selfData);
         PickedItem.UpdateItemCount(itemCount);
-        isPickedItem = true;
+        isPicked = true;
         PickedItem.Show();
 
         isTipsShow = false;
@@ -192,7 +192,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (count == 0)
         {
-            isPickedItem = false;
+            isPicked = false;
             PickedItem.Hide();
         }
         else PickedItem.UpdateItemCount(count);

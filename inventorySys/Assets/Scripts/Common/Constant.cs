@@ -22,7 +22,7 @@ public class Constant
     public static string[] ItemTypeNames = { "消耗品", "装备","武器", "材料" };
     public static string[] QualityNames = { "普通", "非凡", "稀有", "史诗", "传说", "神器" };
     public static string[] QualityColors = { "white", "lime", "navy", "magenta", "orange", "red" };
-    public static string[] WeaponTypeNames = { "副手", "主手"};
+    public static string[] WeaponTypeNames = { "空武器","副手", "主手"};
     public static string[] EquipTypeNames = { "空装备","头盔","项链","护肩", "胸甲", "戒指","护腕", "腰带", "副手", "护腿", "靴子" };
 
     //物品大小动画数值

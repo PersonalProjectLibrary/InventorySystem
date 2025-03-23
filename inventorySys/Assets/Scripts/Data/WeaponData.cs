@@ -16,8 +16,9 @@ public class WeaponData : ItemData
 
     public enum WeaponType
     {
+        None,
         OffHand,
-        MainHand
+        MainHand,
     }
 
     public override string SetTipsText()

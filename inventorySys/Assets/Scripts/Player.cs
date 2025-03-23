@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // 背包显示时，按下B、C键，显示/隐藏背包、箱子
-        if(Input.GetKeyDown(KeyCode.B))
+        // 背包显示时，按下K、C、B键，显示/隐藏背包、箱子
+        if(Input.GetKeyDown(KeyCode.K))
         {
             inventoryMgr.knapsack.SwitchDisplay();
         }
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         {
             inventoryMgr.chest.SwitchDisplay();
         }
-        else if(Input.GetKeyDown(KeyCode.Q))// 显示/隐藏装备栏
+        else if(Input.GetKeyDown(KeyCode.B))// 显示/隐藏装备栏
         {
             inventoryMgr.equipBag.SwitchDisplay();
         }

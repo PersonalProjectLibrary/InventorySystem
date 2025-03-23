@@ -28,11 +28,16 @@ public class Inventory:MonoBehaviour
     
     private float targetAlpha;
 
+    public void Start()
+    {
+        InitInventory();
+        InstanticeSlot();
+        HideInventory();
+    }
     protected virtual void InitInventory()
     {
         inventoryMgr = InventoryManager.Instance;
         canvasGroup = GetComponent<CanvasGroup>();
-        HideInventory();
     }
     protected virtual void InstanticeSlot()
     {
@@ -43,11 +48,6 @@ public class Inventory:MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-        InitInventory();
-        InstanticeSlot();
-    }
     private void Update()
     {
         if (canvasGroup.alpha != targetAlpha)

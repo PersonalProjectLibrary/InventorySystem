@@ -19,8 +19,6 @@ public class EquipBag : Inventory
     #endregion
 
     //武器存放位置
-    private  EquipSlot mainHandSlot;
-    private  EquipSlot offHandSlot;
 
     protected override void InitInventory()
     {
@@ -35,20 +33,20 @@ public class EquipBag : Inventory
             GameObject slotGo = Instantiate(slotPrefab, slotParent);
             slotList.Add(slotGo.GetComponent<EquipSlot>());
             EquipSlot slot = slotList[i] as EquipSlot;
-            slot.equipType = (EquipData.EquipType)i;
+            slot.eType = (EquipData.EquipType)i;
             if(i == 0)
             {
-                slot.equipName.text = "武器";
+                slot.slotName.text = "武器";
                 slotGo.name = "WeaponSlot";
-                mainHandSlot = slot;
             }
             else
             {
-                slot.equipName.text = Constant.EquipTypeNames[i];
-                slotGo.name = $"{slot.equipType}Slot";
-                if((EquipData.EquipType)i == EquipData.EquipType.OffHand)offHandSlot = slot;
+                slot.slotName.text = Constant.EquipTypeNames[i];
+                slotGo.name = $"{slot.eType}Slot";
             }
-            
+            if(slot.eType == EquipData.EquipType.None)slot.wType = WeaponData.WeaponType.MainHand;
+            else if(slot.eType==EquipData.EquipType.OffHand)slot.wType = WeaponData.WeaponType.OffHand;
+            else slot.wType = WeaponData.WeaponType.None;
         }
     }
 }

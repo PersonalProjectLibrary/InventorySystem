@@ -216,4 +216,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 4744200353434408239, guid: 81b56786bfcacfa419b5b63710aecedc, type: 3}
-  equipName: {fileID: 5339645667077280888}
+  eType: 0
+  wType: 0
+  slotName: {fileID: 5339645667077280888}

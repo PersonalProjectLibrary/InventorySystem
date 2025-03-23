@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 /// </summary>
 public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPointerDownHandler
 {
-    private InventoryManager inventoryMgr;
+    protected InventoryManager inventoryMgr;
     public GameObject itemPrefab;
     private GameObject itemGo;
     public Item item{ get; set; }
@@ -20,6 +20,15 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
     {
         return item==null?true:item.ItemCount==0;
     }
+    protected bool IsSame()
+    {
+        return item.selfData.ID == inventoryMgr.PickedItem.selfData.ID;
+    }
+    public bool IsFilled()
+    {
+        return item.ItemCount >= item.selfData.Capacity;
+    }
+
     public void InitStoreItem(ItemData data)
     {
         if (itemGo == null)// 之前格子里没有物品
@@ -41,10 +50,6 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
         item = null;
         if(itemGo != null)Destroy(itemGo);
     }
-    public bool IsFilled()
-    {
-        return item.ItemCount >= item.selfData.Capacity;
-    }
     
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -60,63 +65,65 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
             inventoryMgr.HideItemTips();
         }
     }
-    public void OnPointerDown(PointerEventData eventData)
+    public virtual void OnPointerDown(PointerEventData eventData)
     {
         if(!IsEmpty())//当前格子有物品
         {
-            if(!inventoryMgr.IsPickedItem)//当前没有选中物品
-            {
-                PickItem();
-            }
+            if(!inventoryMgr.IsPicked)PickItem();
             else//当前有选中物品
             {
-                if(item.selfData.ID == inventoryMgr.PickedItem.selfData.ID)//当前选中物品和当前格子物品相同
+                if(IsSame())
                 {
-                    if(!IsFilled())//当前格子物品未满
-                    {
-                        DropPickedItem();
-                    }
+                    if(!IsFilled())DropItem();
                 }
-                else//当前选中物品和当前格子物品不同，进行交换
-                {
-                    ExchangePickedItem();
-                }
+                else ExchangeItem();
             }
         }
         else//当前格子没有物品
         {
-            if(inventoryMgr.IsPickedItem)//当前有选中物品
-            {
-                StorePickedItem();
-            }
+            if(inventoryMgr.IsPicked)StoreItem();
         }
     }
-    private void PickItem()// 拾取物品
+    
+    protected void StoreItem(int count)
     {
+        InitStoreItem(inventoryMgr.PickedItem.selfData);// 初始化格子，默认存一个物品
+        if(count!=1)item.UpdateItemCount(count);//更新为指定个数
+        inventoryMgr.UpdatePickedItem(inventoryMgr.PickedItem.ItemCount-count);
+    }
+    private void StoreItem()
+    {
+        if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键，存储一个物品
+        {
+            StoreItem(1);
+        }
+        else// 存储所有物品
+        {
+            StoreItem(inventoryMgr.PickedItem.ItemCount);
+        }
+    }
+
+    protected void PickItem(int count)
+    {
+        inventoryMgr.PickUpItem(item, count);
+        if(item.ItemCount == count)ClearItem();
+        else item.UpdateItemCount(item.ItemCount-count);
+    }
+    private void PickItem()
+    {
+        int pickCount;
         if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键，取一半数量的物品
         {
-            int pickCount = (item.ItemCount + 1) / 2;
-            inventoryMgr.PickUpItem(item, pickCount);
-
-            if(item.ItemCount == pickCount)ClearItem();
-            else item.UpdateItemCount(item.ItemCount-pickCount);
+            pickCount = (item.ItemCount + 1) / 2;
         }
         else// 没有按下Ctrl键，取全部物品
         {
-            inventoryMgr.PickUpItem(item, item.ItemCount);
-            ClearItem();
+            pickCount = item.ItemCount;
         }
+        PickItem(pickCount);
     }
-    private void ExchangePickedItem()// 交换物品
-    {
-        ItemData tempData = item.selfData;
-        int tempCount = item.ItemCount;
-        item.InitItem(inventoryMgr.PickedItem.selfData);
-        item.UpdateItemCount(inventoryMgr.PickedItem.ItemCount);
-        inventoryMgr.PickedItem.InitItem(tempData);
-        inventoryMgr.PickedItem.UpdateItemCount(tempCount);
-    }
-    private void DropPickedItem()// 放下物品
+    
+    private void DropItem()
     {
         if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键,放下一个物品
         {
@@ -131,18 +138,14 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
             UpdateItem(slotItemCount);
         }
     }
-    private void StorePickedItem()// 存储选中物品
-    {
-        InitStoreItem(inventoryMgr.PickedItem.selfData);// 初始化格子，默认存一个物品
-        if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键，存储一个物品
-        {
-            inventoryMgr.UpdatePickedItem(inventoryMgr.PickedItem.ItemCount-1);
-        }
-        else// 存储所有物品
-        {
-            item.UpdateItemCount(inventoryMgr.PickedItem.ItemCount);
-            inventoryMgr.UpdatePickedItem(0);
-        }
-    }
 
+    protected void ExchangeItem()
+    {
+        ItemData tempData = item.selfData;
+        int tempCount = item.ItemCount;
+        item.InitItem(inventoryMgr.PickedItem.selfData);
+        item.UpdateItemCount(inventoryMgr.PickedItem.ItemCount);
+        inventoryMgr.PickedItem.InitItem(tempData);
+        inventoryMgr.PickedItem.UpdateItemCount(tempCount);
+    }
 }
