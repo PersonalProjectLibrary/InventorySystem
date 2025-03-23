@@ -12,13 +12,13 @@ public class EquipSlot : Slot
     {
         if(!inventoryMgr.IsPicked)
         {
-            if(!IsEmpty())PickItem(1);
+            if(!IsEmpty())PickItem();
         }
         else//有选中物品
         {
             if(IsEmpty())//格子没有物品
             {
-                if(IsTypeMatch())StoreItem(1);
+                if(IsTypeMatch())StoreItem();
             }
             else
             {
@@ -44,8 +44,6 @@ public class EquipSlot : Slot
             case ItemData.ItemType.Weapon:
                 var weaponData = (WeaponData)data;
                 return weaponData.WpType == wType;
-            default:
-                break;
         }
         return false;
     }

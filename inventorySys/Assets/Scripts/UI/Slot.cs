@@ -67,10 +67,19 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
     }
     public virtual void OnPointerDown(PointerEventData eventData)
     {
-        if(!IsEmpty())//当前格子有物品
+        if(!IsEmpty())//格子有物品
         {
-            if(!inventoryMgr.IsPicked)PickItem();
-            else//当前有选中物品
+            if(!inventoryMgr.IsPicked)//没有选中物品
+            {
+                int pickCount;
+                if(Input.GetKey(KeyCode.LeftControl))
+                {
+                    pickCount = (item.ItemCount + 1) / 2;
+                }
+                else pickCount = item.ItemCount;
+                PickItem(pickCount);
+            }
+            else//有选中物品
             {
                 if(IsSame())
                 {
@@ -79,48 +88,28 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
                 else ExchangeItem();
             }
         }
-        else//当前格子没有物品
+        else//格子没有物品
         {
-            if(inventoryMgr.IsPicked)StoreItem();
+            if(inventoryMgr.IsPicked)//有选中物品
+            {
+                if(Input.GetKey(KeyCode.LeftControl))StoreItem();
+                else StoreItem(inventoryMgr.PickedItem.ItemCount);
+            }
         }
     }
     
-    protected void StoreItem(int count)
+    protected void StoreItem(int count = 1)
     {
         InitStoreItem(inventoryMgr.PickedItem.selfData);// 初始化格子，默认存一个物品
         if(count!=1)item.UpdateItemCount(count);//更新为指定个数
         inventoryMgr.UpdatePickedItem(inventoryMgr.PickedItem.ItemCount-count);
     }
-    private void StoreItem()
-    {
-        if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键，存储一个物品
-        {
-            StoreItem(1);
-        }
-        else// 存储所有物品
-        {
-            StoreItem(inventoryMgr.PickedItem.ItemCount);
-        }
-    }
 
-    protected void PickItem(int count)
+    protected void PickItem(int count = 1)
     {
         inventoryMgr.PickUpItem(item, count);
         if(item.ItemCount == count)ClearItem();
         else item.UpdateItemCount(item.ItemCount-count);
-    }
-    private void PickItem()
-    {
-        int pickCount;
-        if(Input.GetKey(KeyCode.LeftControl))// 按下了Ctrl键，取一半数量的物品
-        {
-            pickCount = (item.ItemCount + 1) / 2;
-        }
-        else// 没有按下Ctrl键，取全部物品
-        {
-            pickCount = item.ItemCount;
-        }
-        PickItem(pickCount);
     }
     
     private void DropItem()
