@@ -986,7 +986,7 @@ GameObject:
   - component: {fileID: 1209655170}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: EquipPanel
+  m_Name: GearPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1217,7 +1217,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u89D2\u8272\u88C5\u5907"
+  m_Text: "\u88C5\u5907"
 --- !u!222 &1600670800
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1297,7 +1297,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u80CC\u5305"
+  m_Text: "\u7269\u54C1\u80CC\u5305"
 --- !u!222 &1805441743
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1585,8 +1585,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1818776475}
-  - {fileID: 1147730720}
   - {fileID: 1209655166}
+  - {fileID: 1147730720}
   - {fileID: 6249125831335227534}
   - {fileID: 739579915378421991}
   m_Father: {fileID: 0}
@@ -1867,7 +1867,7 @@ GameObject:
   - component: {fileID: 5155899776311817567}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: Tips
+  m_Name: InfoTips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

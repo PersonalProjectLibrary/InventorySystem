@@ -92,10 +92,10 @@ GameObject:
   - component: {fileID: 4901104527310877602}
   - component: {fileID: 1639869058651908220}
   - component: {fileID: 737699693065885296}
-  - component: {fileID: 4981616670794062631}
+  - component: {fileID: 3338235436434088453}
   m_Layer: 5
   m_HasEditorInfo: 1
-  m_Name: EquitSlot
+  m_Name: GearSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4981616670794062631
+--- !u!114 &3338235436434088453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -16,7 +16,7 @@ public class Constant
     // 背包格子数量
     public static int KnapsackSlotCount = 20;
     public static int ChestSlotCount = 6;
-    public static int EquipSlotCount = 11;
+    public static int GearSlotCount = 11;
 
     //物品信息
     public static string[] ItemTypeNames = { "消耗品", "装备","武器", "材料" };
@@ -26,8 +26,8 @@ public class Constant
     public static string[] EquipTypeNames = { "空装备","头盔","项链","护肩", "胸甲", "戒指","护腕", "腰带", "副手", "护腿", "靴子" };
 
     //物品大小动画数值
-    public static float ItemAnimationScaleSpeed = 5f;
     public static Vector3 ItemDefaultScale = new Vector3(1, 1, 1);
     public static Vector3 ItemAnimationScale = new Vector3(1.5f, 1.5f, 1.5f);
+    public static float ItemAnimationScaleSpeed = 5f;
 
 }

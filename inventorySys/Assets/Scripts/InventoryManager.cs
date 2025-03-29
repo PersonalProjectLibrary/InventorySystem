@@ -27,11 +27,11 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// 物品数据列表[配置文件解析得到]
     /// </summary>
-    public Dictionary<int, ItemData> itemDataDic = new Dictionary<int, ItemData>();
+    public Dictionary<int, ItemData> ItemDatas = new Dictionary<int, ItemData>();
     //背包
-    public Knapsack knapsack{ get; private set; }
-    public Chest chest{ get; private set; }
-    public EquipBag equipBag{ get; private set; }
+    public KnapsackPanel knapsackPanel{ get; private set; }
+    public ChestPanel chestPanel{ get; private set; }
+    public GearPanel gearPanel{ get; private set; }
     //物品信息提示框
     public InfoTips tips{ get; private set; }
     private bool isTipsShow = false;
@@ -48,14 +48,14 @@ public class InventoryManager : MonoBehaviour
     {
         _instance = this;
         tips = InfoTips.Instance;
-        knapsack = Knapsack.Instance;
-        chest = Chest.Instance;
-        equipBag = EquipBag.Instance;
+        knapsackPanel = KnapsackPanel.Instance;
+        chestPanel = ChestPanel.Instance;
+        gearPanel = GearPanel.Instance;
         
         canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
         PickedItem = GameObject.Find("PickedItem").GetComponent<Item>();
         PickedItem.Hide();
-        InitItemDataList();
+        InitItemDatas();
     }
 
     private void Start()
@@ -77,10 +77,7 @@ public class InventoryManager : MonoBehaviour
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
             PickedItem.SetLocalPosition(position);
         }
-
-        //物品丢弃处理
-        if (isPicked && Input.GetMouseButtonDown(0) && !IsPointerOverUI(true))
-        //if (isPickedItem && Input.GetMouseButtonDown(0) && !IsPointerOverUI())
+        if (isPicked && Input.GetMouseButtonDown(0) && !MouseIsPointerOverUI(true))//物品丢弃处理
         {
             isPicked = false;
             PickedItem.Hide();
@@ -88,20 +85,12 @@ public class InventoryManager : MonoBehaviour
     }
 
     //射线检测判断鼠标是否在UI上
-    private bool IsPointerOverUI(bool isCheckTouch)
+    private bool MouseIsPointerOverUI(bool isCheckTouch)
     {
         return isCheckTouch?EventSystem.current.IsPointerOverGameObject(-1):EventSystem.current.IsPointerOverGameObject();
     }
-    private bool IsPointerOverUI()
-    {
-        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-        eventDataCurrentPosition.position = Input.mousePosition;
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-        return results.Count > 0;
-    }
     
-    private void InitItemDataList()
+    private void InitItemDatas()
     {
         try
         {
@@ -129,7 +118,7 @@ public class InventoryManager : MonoBehaviour
                     case ItemData.ItemType.Consumable:
                         int hp = temp["hp"].intValue;
                         int mp = temp["mp"].intValue;
-                        itemDataDic.Add(id, new ConsumableData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, hp, mp));
+                        ItemDatas.Add(id, new ConsumableData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, hp, mp));
                         break;
                     case ItemData.ItemType.Equipment:
                         int strength = temp["strength"].intValue;
@@ -137,16 +126,16 @@ public class InventoryManager : MonoBehaviour
                         int agility = temp["agility"].intValue;
                         int stamina = temp["stamina"].intValue;
                         EquipData.EquipType equipType = (EquipData.EquipType)System.Enum.Parse(typeof(EquipData.EquipType), temp["equipType"].stringValue);
-                        itemDataDic.Add(id, new EquipData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite,
+                        ItemDatas.Add(id, new EquipData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite,
                         strength, intellect, agility, stamina, equipType));
                         break;
                     case ItemData.ItemType.Weapon:
                         int damage = temp["damage"].intValue;
                         WeaponData.WeaponType weaponType = (WeaponData.WeaponType)System.Enum.Parse(typeof(WeaponData.WeaponType), temp["weaponType"].stringValue);
-                        itemDataDic.Add(id, new WeaponData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType));
+                        ItemDatas.Add(id, new WeaponData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType));
                         break;
                     case ItemData.ItemType.Material:
-                        itemDataDic.Add(id, new MaterialData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite));
+                        ItemDatas.Add(id, new MaterialData(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite));
                         break;
                 }
                 //Debug.Log(name);
@@ -159,42 +148,42 @@ public class InventoryManager : MonoBehaviour
     }
     public ItemData GetItemDataById(int itemId)
     {
-        if(!itemDataDic.ContainsKey(itemId))
+        if(!ItemDatas.ContainsKey(itemId))
         {
             Debug.LogError($"未能找到ID为{itemId}的物品");
             return null;
         }
-        return itemDataDic[itemId];
+        return ItemDatas[itemId];
     }
 
     public void ShowItemTips(string info)
     {
         isTipsShow = true;
-        tips.ShowTips(info);
+        tips.Show(info);
     }
     public void HideItemTips()
     {
         isTipsShow = false;
-        tips.HideTips();
+        tips.Hide();
     }
 
-    public void PickUpItem(Item item, int itemCount)
+    public void MousePickUpItem(Item item, int itemCount)
     {
-        PickedItem.InitItem(item.selfData);
-        PickedItem.UpdateItemCount(itemCount);
+        PickedItem.Init(item.selfData);
+        PickedItem.UpdateAmount(itemCount);
         isPicked = true;
         PickedItem.Show();
 
         isTipsShow = false;
-        tips.HideTips();
+        tips.Hide();
     }
-    public void UpdatePickedItem(int count)
+    public void UpdateMousePickedCount(int count)
     {
         if (count == 0)
         {
             isPicked = false;
             PickedItem.Hide();
         }
-        else PickedItem.UpdateItemCount(count);
+        else PickedItem.UpdateAmount(count);
     }
 }

@@ -9,21 +9,21 @@ public class Item : MonoBehaviour
 {
     public Text itemCountText;
     public ItemData selfData{ get; set; }
-    public int ItemCount{ get; set; }
+    public int ItemAmount{ get; set; }
 
     private Vector3 targetScale = Constant.ItemDefaultScale;
     
-    public void InitItem(ItemData data )
+    public void Init(ItemData data )
     {
         selfData = data;
         Sprite sprite = Resources.Load<Sprite>(selfData.Sprite);
         GetComponent<Image>().sprite = sprite;
-        UpdateItemCount(1);
+        UpdateAmount();
     }
-    public void UpdateItemCount(int count)
+    public void UpdateAmount(int amount = 1)
     {
-        ItemCount = count;
-        itemCountText.text = count.ToString();
+        ItemAmount = amount;
+        itemCountText.text = amount.ToString();
         transform.localScale = Constant.ItemAnimationScale;
     }
 

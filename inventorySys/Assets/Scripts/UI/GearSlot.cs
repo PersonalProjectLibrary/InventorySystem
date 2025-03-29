@@ -1,7 +1,7 @@
 
 using UnityEngine.UI;
 
-public class EquipSlot : Slot
+public class GearSlot : Slot
 {
     public EquipData.EquipType eType;
     public WeaponData.WeaponType wType;
@@ -11,21 +11,33 @@ public class EquipSlot : Slot
     {
         if(!inventoryMgr.IsPicked)
         {
-            if(!IsEmpty())PickItem();
+            if(!IsEmpty())
+            {
+                MousePickItem();
+            }
         }
         else//有选中物品
         {
+            var data = inventoryMgr.PickedItem.selfData;
+            int itemCount = inventoryMgr.PickedItem.ItemAmount;
             if(IsEmpty())//格子没有物品
             {
-                if(IsTypeMatch())StoreItem();
+                if(IsItemAndSlotMatch(data))
+                {
+                    StoreItem(data);
+                    inventoryMgr.UpdateMousePickedCount(itemCount-1);
+                }
             }
             else
             {
-                if(IsTypeMatch())
+                if(IsItemAndSlotMatch(data))
                 {
-                    if(!IsSame())
+                    if(!IsSameItem(data.ID))
                     {
-                        if(inventoryMgr.PickedItem.ItemCount == 1)ExchangeItem();
+                        if(itemCount == 1)
+                        {
+                            ExchangeMouseItem();
+                        }
                     }
                 }
             }
@@ -40,9 +52,8 @@ public class EquipSlot : Slot
         }
     }
 
-    private bool IsTypeMatch()
+    public bool IsItemAndSlotMatch(ItemData data)
     {
-        var data = inventoryMgr.PickedItem.selfData;
         switch (data.Type)
         {
             case ItemData.ItemType.Equipment:

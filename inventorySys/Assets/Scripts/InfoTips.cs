@@ -12,7 +12,7 @@ public class InfoTips : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = GameObject.Find("Tips").GetComponent<InfoTips>();
+                _instance = GameObject.Find("InfoTips").GetComponent<InfoTips>();
             }
             return _instance;
         }
@@ -24,7 +24,7 @@ public class InfoTips : MonoBehaviour
     private CanvasGroup canvasGroup;
     private Text tipsText;
     private Text infoText;
-    private void InitTips()
+    private void Init()
     {
         tipsText = GetComponent<Text>();
         infoText = transform.Find("TxtContent").GetComponent<Text>();
@@ -34,7 +34,7 @@ public class InfoTips : MonoBehaviour
     }
     private void Awake()
     {
-        InitTips();
+        Init();
     }
     private void Update()
     {
@@ -47,13 +47,13 @@ public class InfoTips : MonoBehaviour
             }
         }
     }
-    public void ShowTips(string info)
+    public void Show(string info)
     {
         tipsText.text = info;
         infoText.text = info;
         targetAlpha = Constant.ShowAlpha;
     }
-    public void HideTips()
+    public void Hide()
     {
         targetAlpha = Constant.HideAlpha;
     }

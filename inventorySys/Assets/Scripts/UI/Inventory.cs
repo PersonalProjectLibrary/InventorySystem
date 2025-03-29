@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 背包基类
 /// </summary>
-public class Inventory:MonoBehaviour
+public class Inventory : MonoBehaviour
 {
     protected InventoryManager inventoryMgr;
     protected CanvasGroup canvasGroup;
@@ -30,11 +30,11 @@ public class Inventory:MonoBehaviour
 
     public void Start()
     {
-        InitInventory();
+        Init();
         InstanticeSlot();
-        HideInventory();
+        Hide();
     }
-    protected virtual void InitInventory()
+    protected virtual void Init()
     {
         inventoryMgr = InventoryManager.Instance;
         canvasGroup = GetComponent<CanvasGroup>();
@@ -59,75 +59,73 @@ public class Inventory:MonoBehaviour
             }
         }
     }
-    protected void ShowInventory()
+    protected void Show()
     {
         targetAlpha = Constant.ShowAlpha;
         canvasGroup.blocksRaycasts = true;
     }
-    protected void HideInventory()
+    protected void Hide()
     {
         targetAlpha = Constant.HideAlpha;
         canvasGroup.blocksRaycasts = false;//不接收射线，射线会穿透界面，更不会触发射线检测鼠标点击事件
     }
-    public void SwitchDisplay()
+    public void SwitchDisplayState()
     {
         if (canvasGroup.alpha == Constant.ShowAlpha)
         {
-            HideInventory();
+            Hide();
         }
         else
         {
-            ShowInventory();
+            Show();
         }
     }
 
-    public bool StoreItem(int itemId)
+    public bool ObtainItem(int itemId)
     {
         ItemData itemData = inventoryMgr.GetItemDataById(itemId);
-        return StoreItem(itemData);
+        return ObtainItem(itemData);
     }
-    public bool StoreItem(ItemData itemData)
+    public bool ObtainItem(ItemData itemData)
     {
         if (itemData == null)
         {
-            Debug.LogError("要存储的物品不存在");
+            Debug.LogError("要获取的物品不存在");
             return false;
         }
-
         Slot slot;
         if(itemData.Capacity == 1)// 物品容量为1，不能和其他同类物品放一起
         {
-            slot = FindEmptySlot();
+            slot = FindEmptyItemSlot();
             if (slot == null)
             {
                 Debug.Log("没有空的物品槽");
                 return false;
             }
-            slot.InitStoreItem(itemData);
+            slot.StoreItem(itemData);
         }
         else
         {
             slot = FindSameItemSlot(itemData);
             if(slot == null)//没有存储过该物品的格子
             {
-                slot = FindEmptySlot();
+                slot = FindEmptyItemSlot();
                 if (slot == null)
                 {
                     Debug.Log("没有空的物品槽");
                     return false;
                 }
-                slot.InitStoreItem(itemData);
+                slot.StoreItem(itemData);
             }
-            else slot.UpdateItem(slot.item.ItemCount + 1);
+            else slot.UpdateItemCount(slot.item.ItemAmount + 1);
         }
-        //Debug.Log(itemData.Name + "存储成功");
+        //Debug.Log(itemData.Name + "获取成功");
         return true;
     }
-    public Slot FindEmptySlot()
+    public Slot FindEmptyItemSlot()
     {
         foreach (Slot slot in slotList)
         {
-            // 如果格子是空的
             if (slot.IsEmpty())
             {
                 return slot;
