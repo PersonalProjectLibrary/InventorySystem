@@ -46,4 +46,27 @@ public class GearPanel : Inventory
             else slot.wType = WeaponData.WeaponType.None;
         }
     }
+
+    public void PutOn(ItemData data)
+    {
+        ItemData itemData = null;
+        foreach (var slot in slotList)
+        {
+            var gs = slot as GearSlot;
+            if (gs.IsItemAndSlotMatch(data))
+            {
+                if(!gs.IsEmpty())
+                {
+                    itemData = gs.item.selfData;
+                    gs.ClearItem();
+                }
+                gs.StoreItem(data);
+                break;
+            }
+        }
+        if (itemData != null)
+        {
+            KnapsackPanel.Instance.ObtainItem(itemData);
+        }
+    }
 }

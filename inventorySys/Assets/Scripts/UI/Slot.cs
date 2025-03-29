@@ -9,7 +9,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 {
     protected InventoryManager inventoryMgr;
     public GameObject itemPrefab;
-    private GameObject itemGo;
+    protected GameObject itemGo;
     public Item item{ get; set; }
     public void Start()
     {
@@ -97,8 +97,24 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             }
         }
     }
-    protected virtual void ClickItemByMouseRight()
+    protected void ClickItemByMouseRight()
     {
+        if(!IsEmpty()&&!inventoryMgr.IsPicked)
+        {
+            var itemType = item.selfData.Type;
+            if(itemType is ItemData.ItemType.Equipment||itemType is ItemData.ItemType.Weapon)
+            {
+                var data = item.selfData;
+                item.UpdateAmount(item.ItemAmount-1);
+                if(item.ItemAmount == 0)
+                {
+                    item = null;
+                    if(itemGo != null)DestroyImmediate(itemGo);//不立即销毁会报错，故不用UpdateItemCount()方法
+                    inventoryMgr.HideItemTips();
+                }
+                GearPanel.Instance.PutOn(data);
+            }
+        }
     }
     
     public bool IsEmpty()
@@ -131,10 +147,10 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         if(count == 0)ClearItem();
         else item.UpdateAmount(count);
     }
-    public void ClearItem()
+    public virtual void ClearItem()
     {
         item = null;
-        if(itemGo != null)Destroy(itemGo);
+        if(itemGo != null)Destroy(itemGo);//左键拾取物品，如果使用立即销毁，会行为异常
     }
     
     protected void MousePickItem(int count = 1)

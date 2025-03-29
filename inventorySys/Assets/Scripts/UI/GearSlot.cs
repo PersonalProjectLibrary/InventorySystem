@@ -44,14 +44,6 @@ public class GearSlot : Slot
         }
     }
 
-    protected override void ClickItemByMouseRight()
-    {
-        if(!IsEmpty())
-        {
-            
-        }
-    }
-
     public bool IsItemAndSlotMatch(ItemData data)
     {
         switch (data.Type)
@@ -64,5 +56,11 @@ public class GearSlot : Slot
                 return weaponData.WpType == wType;
         }
         return false;
+    }
+
+    public override void ClearItem()
+    {
+        item = null;
+        if(itemGo != null)DestroyImmediate(itemGo);//不立即销毁会报错
     }
 }
