@@ -123,7 +123,7 @@ public class Inventory:MonoBehaviour
         //Debug.Log(itemData.Name + "存储成功");
         return true;
     }
-    protected Slot FindEmptySlot()
+    public Slot FindEmptySlot()
     {
         foreach (Slot slot in slotList)
         {
@@ -135,7 +135,7 @@ public class Inventory:MonoBehaviour
         }
         return null;
     }
-    protected Slot FindSameItemSlot(ItemData itemData)
+    public Slot FindSameItemSlot(ItemData itemData)
     {
         foreach (Slot slot in slotList)
         {

@@ -38,9 +38,9 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
             item = itemGo.GetComponent<Item>();
             item.InitItem(data);
         }
-        UpdateItem(1);
+        UpdateItem();
     }
-    public void UpdateItem(int count)
+    public void UpdateItem(int count = 1)
     {
         item.UpdateItemCount(count);
         if(item.ItemCount == 0)ClearItem();
@@ -65,7 +65,19 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
             inventoryMgr.HideItemTips();
         }
     }
-    public virtual void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if(eventData.button == PointerEventData.InputButton.Left)
+        {
+            ClickItemByMouseLeft();
+        }
+        if(eventData.button == PointerEventData.InputButton.Right)
+        {
+            ClickItemByMouseRight();
+        }
+    }
+
+    protected virtual void ClickItemByMouseLeft()
     {
         if(!IsEmpty())//格子有物品
         {
@@ -97,6 +109,10 @@ public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPoin
             }
         }
     }
+    protected virtual void ClickItemByMouseRight()
+    {
+    }
+    
     
     protected void StoreItem(int count = 1)
     {

@@ -1,6 +1,5 @@
 
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class EquipSlot : Slot
 {
@@ -8,7 +7,7 @@ public class EquipSlot : Slot
     public WeaponData.WeaponType wType;
     public Text slotName;
 
-    public override void OnPointerDown(PointerEventData eventData)
+    protected override void ClickItemByMouseLeft()
     {
         if(!inventoryMgr.IsPicked)
         {
@@ -30,6 +29,14 @@ public class EquipSlot : Slot
                     }
                 }
             }
+        }
+    }
+
+    protected override void ClickItemByMouseRight()
+    {
+        if(!IsEmpty())
+        {
+            
         }
     }
 

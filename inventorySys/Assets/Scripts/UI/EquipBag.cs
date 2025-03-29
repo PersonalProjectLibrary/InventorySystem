@@ -18,14 +18,11 @@ public class EquipBag : Inventory
     }
     #endregion
 
-    //武器存放位置
-
     protected override void InitInventory()
     {
         slotCount = Constant.EquipSlotCount;
         base.InitInventory();
     }
-
     protected override void InstanticeSlot()
     {
         for (int i = 0; i < slotCount; i++)
@@ -49,4 +46,27 @@ public class EquipBag : Inventory
             else slot.wType = WeaponData.WeaponType.None;
         }
     }
+
+
+    public EquipSlot GetTargetSlot(EquipData.EquipType eType)
+    {
+        foreach (var slot in slotList)
+        {
+            EquipSlot eSlot = slot as EquipSlot;
+            if (eSlot.eType == eType)return eSlot;
+        }
+        Debug.Log($"找不到{eType}装备槽");
+        return null;
+    }
+    public EquipSlot GetTargetSlot(WeaponData.WeaponType wType)
+    {
+        foreach (var slot in slotList)
+        {
+            EquipSlot eSlot = slot as EquipSlot;
+            if (eSlot.wType == wType)return eSlot;
+        }
+        Debug.Log($"找不到{wType}武器槽");
+        return null;
+    }
+    
 }
