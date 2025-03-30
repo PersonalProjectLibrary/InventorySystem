@@ -109,7 +109,13 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 if(item.ItemAmount == 0)
                 {
                     item = null;
-                    if(itemGo != null)DestroyImmediate(itemGo);//不立即销毁会报错，故不用UpdateItemCount()方法
+                    //if(itemGo != null)DestroyImmediate(itemGo);//不立即销毁会报错，故不用UpdateItemCount()方法
+                    if(itemGo != null)
+                    {
+                        var tempGo = itemGo;//避免下面置空先于Destory情况，导致内存泄漏
+                        Destroy(tempGo);//运行时，不能使用DestroyImmediate
+                        itemGo = null;//强制清空
+                    }
                     inventoryMgr.HideItemTips();
                 }
                 GearPanel.Instance.PutOn(data);
