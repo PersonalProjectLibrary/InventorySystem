@@ -44,6 +44,17 @@ public class GearSlot : Slot
         }
     }
 
+    protected override void ClickItemByMouseRight()
+    {
+        if(!IsEmpty()&&!inventoryMgr.IsPicked)
+        {
+            var data = item.selfData;
+            ClearItem();
+            inventoryMgr.HideItemTips();
+            GearPanel.Instance.GearPanelPutOff(data);
+        }
+    }
+
     public bool IsItemAndSlotMatch(ItemData data)
     {
         switch (data.Type)

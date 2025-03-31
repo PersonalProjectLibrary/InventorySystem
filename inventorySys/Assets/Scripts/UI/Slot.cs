@@ -97,7 +97,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             }
         }
     }
-    protected void ClickItemByMouseRight()
+    protected virtual void ClickItemByMouseRight()
     {
         if(!IsEmpty()&&!inventoryMgr.IsPicked)
         {
@@ -118,7 +118,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                     }
                     inventoryMgr.HideItemTips();
                 }
-                GearPanel.Instance.PutOn(data);
+                GearPanel.Instance.GearPanelPutOn(data);
             }
         }
     }

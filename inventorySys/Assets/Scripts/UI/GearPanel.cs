@@ -47,7 +47,7 @@ public class GearPanel : Inventory
         }
     }
 
-    public void PutOn(ItemData data)
+    public void GearPanelPutOn(ItemData data)
     {
         ItemData itemData = null;
         foreach (var slot in slotList)
@@ -68,5 +68,9 @@ public class GearPanel : Inventory
         {
             KnapsackPanel.Instance.ObtainItem(itemData);
         }
+    }
+    public void GearPanelPutOff(ItemData data)
+    {
+        KnapsackPanel.Instance.ObtainItem(data);
     }
 }
