@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // 背包显示时，按下K、C、G键，显示/隐藏背包、箱子、装备
+        // 按下K、C、G键，显示/隐藏背包、箱子、装备
         if(Input.GetKeyDown(KeyCode.K))
         {
             inventoryMgr.knapsackPanel.SwitchDisplayState();
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
             inventoryMgr.gearPanel.SwitchDisplayState();
         }
 
-        // 背包显示时，按下I、E、W、M键，给背包添加一个随机物品
+        // 按下I、E、W、M键，往背包添加一个随机物品
         if(inventoryMgr.knapsackPanel.CanvasGroup.alpha==Constant.ShowAlpha)
         {
             if (Input.GetKeyDown(KeyCode.I))//添加随机物品
