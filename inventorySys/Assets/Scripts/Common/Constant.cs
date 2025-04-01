@@ -15,7 +15,7 @@ public class Constant
 
     // 背包格子数量
     public static int KnapsackSlotCount = 20;
-    public static int ChestSlotCount = 6;
+    public static int ChestSlotCount = 8;
     public static int GearSlotCount = 11;
 
     //物品信息

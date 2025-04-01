@@ -38,6 +38,11 @@ public class Inventory : MonoBehaviour
     {
         inventoryMgr = InventoryManager.Instance;
         canvasGroup = GetComponent<CanvasGroup>();
+        //清除slotParent下面的子物体
+        for (int i = slotParent.childCount - 1; i >= 0; i--)
+        {
+            Destroy(slotParent.GetChild(i).gameObject);
+        }
     }
     protected virtual void InstanticeSlot()
     {
