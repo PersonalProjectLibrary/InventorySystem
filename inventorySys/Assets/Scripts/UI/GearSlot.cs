@@ -9,11 +9,13 @@ public class GearSlot : Slot
 
     protected override void ClickItemByMouseLeft()
     {
+        bool isUpdateProperty = false;
         if(!inventoryMgr.IsPicked)
         {
             if(!IsEmpty())
             {
                 MousePickItem();
+                isUpdateProperty = true;
             }
         }
         else//有选中物品
@@ -26,6 +28,7 @@ public class GearSlot : Slot
                 {
                     StoreItem(data);
                     inventoryMgr.UpdateMousePickedCount(itemCount-1);
+                    isUpdateProperty = true;
                 }
             }
             else
@@ -37,10 +40,16 @@ public class GearSlot : Slot
                         if(itemCount == 1)
                         {
                             ExchangeMouseItem();
+                            isUpdateProperty = true;
                         }
                     }
                 }
             }
+        }
+        if(isUpdateProperty)
+        {
+            //GearPanel.Instance.UpdateProperty();
+            transform.parent.parent.SendMessage("UpdateProperty");//SendMessage，向父/子对象发送消息
         }
     }
 
@@ -51,7 +60,8 @@ public class GearSlot : Slot
             var data = item.selfData;
             ClearItem();
             inventoryMgr.HideItemTips();
-            GearPanel.Instance.GearPanelPutOff(data);
+            //GearPanel.Instance.GearPanelPutOff(data);
+            transform.parent.parent.SendMessage("GearPanelPutOff", data);//SendMessage，向父/子对象发送消息
         }
     }
 

@@ -43,4 +43,12 @@ public class EquipData : ItemData
         text += string.Format("\n<color=navy>装备类型：{4}</color>\n<color=red>力量：{0}</color>\n<color=yellow>智力：{1}</color>\n<color=green>敏捷：{2}</color>\n<color=blue>耐力：{3}</color>", Strength, Intellect, Agility, Stamina, typeName);
         return text;
     }
+
+    public void GetProperty(ref int strength, ref int intellect, ref int agility, ref int stamina)
+    {
+        strength += Strength;
+        intellect += Intellect;
+        agility += Agility;
+        stamina += Stamina;
+    }
 }

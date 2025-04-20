@@ -28,4 +28,9 @@ public class WeaponData : ItemData
         text += string.Format("\n<color=yellow>武器类型：{1}</color>\n<color=red>伤害：{0}</color>",Damage, wpType);
         return text;
     }
+
+    public void GetProperty(ref int damage)
+    {
+        damage += Damage;
+    }
 }

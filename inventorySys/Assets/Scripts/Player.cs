@@ -6,6 +6,8 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
+    public BasicProperty basicProperty = new BasicProperty();
+
     private InventoryManager inventoryMgr
     {
         get
@@ -50,5 +52,14 @@ public class Player : MonoBehaviour
                 inventoryMgr.knapsackPanel.ObtainItem(Random.Range(15, 18));
             }
         }
+    }
+
+    public void GetProperty(ref int strength, ref int intellect, ref int agility, ref int stamina, ref int damage)
+    {
+        strength += basicProperty.strength;
+        intellect += basicProperty.intellect;
+        agility += basicProperty.agility;
+        stamina += basicProperty.stamina;
+        damage += basicProperty.damage;
     }
 }

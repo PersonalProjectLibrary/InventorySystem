@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GearPanel : Inventory
 {
@@ -18,9 +19,13 @@ public class GearPanel : Inventory
     }
     #endregion
 
+    private Player player;
+    public Text propertyText;
+
     protected override void Init()
     {
         slotCount = Constant.GearSlotCount;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         base.Init();
     }
     protected override void InstanticeSlot()
@@ -45,6 +50,7 @@ public class GearPanel : Inventory
             else if(slot.eType==EquipData.EquipType.OffHand)slot.wType = WeaponData.WeaponType.OffHand;
             else slot.wType = WeaponData.WeaponType.None;
         }
+        UpdateProperty();
     }
 
     public void GearPanelPutOn(ItemData data)
@@ -61,6 +67,7 @@ public class GearPanel : Inventory
                     gs.ClearItem();
                 }
                 gs.StoreItem(data);
+                UpdateProperty();
                 break;
             }
         }
@@ -72,5 +79,27 @@ public class GearPanel : Inventory
     public void GearPanelPutOff(ItemData data)
     {
         KnapsackPanel.Instance.ObtainItem(data);
+        UpdateProperty();
+    }
+
+    public void UpdateProperty()
+    {
+        int strength = 0, intellect = 0, agility = 0, stamina = 0, damage = 0;
+        foreach (GearSlot slot in slotList)
+        {
+            if (slot.IsEmpty())continue;
+            if(slot.item.selfData is WeaponData)
+            {
+                WeaponData data = slot.item.selfData as WeaponData;
+                data.GetProperty(ref damage);
+            }
+            else
+            {
+                EquipData data = slot.item.selfData as EquipData;
+                data.GetProperty(ref strength, ref intellect, ref agility, ref stamina);
+            }
+        }
+        player.GetProperty(ref strength, ref intellect, ref agility, ref stamina, ref damage);
+        propertyText.text = $"力量：{strength}\n智力：{intellect}\n敏捷：{agility}\n耐力：{stamina}\n攻击力：{damage}";
     }
 }
