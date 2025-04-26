@@ -19,6 +19,7 @@ public class Constant
     public static int ChestSlotCount = 8;
     public static int GearSlotCount = 11;
     public static int VendorSlotCount = 12;
+    public static int ForgeSlotCount = 2;
 
     //物品信息
     public static string[] ItemTypeNames = { "消耗品", "装备","武器", "材料" };
@@ -31,6 +32,7 @@ public class Constant
         {1,"hp"},{2,"mp"},{3,"armor"},{5,"boots"},{6,"bracers"},{7,"gloves"},
         {8,"helmets"},{9,"necklace"},{10,"rings"},{15,"book"},{16,"scroll"},{17,"ingots"},
     };
+    
     //物品大小动画数值
     public static Vector3 ItemDefaultScale = new Vector3(1, 1, 1);
     public static Vector3 ItemAnimationScale = new Vector3(1.5f, 1.5f, 1.5f);

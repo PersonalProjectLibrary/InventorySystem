@@ -33,6 +33,7 @@ public class InventoryManager : MonoBehaviour
     public ChestPanel chestPanel{ get; private set; }
     public GearPanel gearPanel{ get; private set; }
     public VendorPanel vendorPanel{ get; private set; }
+    public ForgePanel forgePanel{ get; private set; }
     //物品信息提示框
     public InfoTips tips{ get; private set; }
     private bool isTipsShow = false;
@@ -117,6 +118,7 @@ public class InventoryManager : MonoBehaviour
         chestPanel = ChestPanel.Instance;
         gearPanel = GearPanel.Instance;
         vendorPanel = VendorPanel.Instance;
+        forgePanel = ForgePanel.Instance;
         
         canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
         PickedItem = GameObject.Find("PickedItem").GetComponent<Item>();

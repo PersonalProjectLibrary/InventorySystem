@@ -51,24 +51,13 @@ public class Player : MonoBehaviour
             }
         }
     }
-    private void KnapsackAddItem()// 按下K、C、G键，显示/隐藏背包、箱子、装备
+    private void KnapsackAddItem()// 按下K、C、G、V、F键，显示/隐藏背包、箱子、装备、商店、锻造界面
     {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            inventoryMgr.knapsackPanel.SwitchDisplayState();
-        }
-        else if(Input.GetKeyDown(KeyCode.C))
-        {
-            inventoryMgr.chestPanel.SwitchDisplayState();
-        }
-        else if(Input.GetKeyDown(KeyCode.G))
-        {
-            inventoryMgr.gearPanel.SwitchDisplayState();
-        }
-        else if(Input.GetKeyDown(KeyCode.V))
-        {
-            inventoryMgr.vendorPanel.SwitchDisplayState();
-        }
+        if(Input.GetKeyDown(KeyCode.K))inventoryMgr.knapsackPanel.SwitchDisplayState();
+        else if(Input.GetKeyDown(KeyCode.C))inventoryMgr.chestPanel.SwitchDisplayState();
+        else if(Input.GetKeyDown(KeyCode.G))inventoryMgr.gearPanel.SwitchDisplayState();
+        else if(Input.GetKeyDown(KeyCode.V))inventoryMgr.vendorPanel.SwitchDisplayState();
+        else if(Input.GetKeyDown(KeyCode.F))inventoryMgr.forgePanel.SwitchDisplayState();
     }
     private void UpdateCoin()
     {
