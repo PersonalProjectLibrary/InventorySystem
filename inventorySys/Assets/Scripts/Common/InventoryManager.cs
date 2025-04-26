@@ -107,9 +107,9 @@ public class InventoryManager : MonoBehaviour
     }
     private void Start()
     {
-        InitInventoryMgr();
+        InitMgr();
     }
-    private void InitInventoryMgr()
+    private void InitMgr()
     {
         _instance = this;
         tips = InfoTips.Instance;

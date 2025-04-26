@@ -12,7 +12,7 @@ public class MaterialData : ItemData
     public override string SetTipsText()
     {
         string text = base.SetTipsText();
-        text += string.Format("\n<color=red>类型：{0}</color>","材料");
+        text += string.Format("\n<color=lime>类型：{0}</color>","材料");
         return text;
     }
 }

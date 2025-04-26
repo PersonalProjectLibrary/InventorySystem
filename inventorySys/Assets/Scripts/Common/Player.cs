@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         coinText = GameObject.Find("Coin").GetComponentInChildren<Text>();
+        UpdateCoin();
     }
     void Update()
     {

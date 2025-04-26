@@ -25,7 +25,7 @@ public class WeaponData : ItemData
     {
         string text = base.SetTipsText();
         string wpType = Constant.WeaponTypeNames[(int)WpType];
-        text += string.Format("\n<color=yellow>武器类型：{1}</color>\n<color=red>伤害：{0}</color>",Damage, wpType);
+        text += string.Format("\n<color=lime>武器类型：{1}</color>\n<color=red>伤害：{0}</color>",Damage, wpType);
         return text;
     }
 

@@ -55,7 +55,7 @@ public class ItemData
         string typeStr = Constant.ItemTypeNames[(int)Type];
         string color = Constant.QualityColors[(int)Quality];
         string qualityStr = Constant.QualityNames[(int)Quality];
-        string text = string.Format("<color={0}>{1}</color>\n<size=10><color=yellow>物品类型：{2}</color></size>\n<size=10><color=yellow>品质：{3}</color></size>\n描述：{4}", color, Name, typeStr,qualityStr, Description);
+        string text = string.Format("<color={0}>{1}</color>\n<size=10><color=lime>物品类型：{2}</color></size>\n<size=10><color=yellow>品质：{3}</color></size>\n描述：{4}", color, Name, typeStr,qualityStr, Description);
         return text;
     }
 }

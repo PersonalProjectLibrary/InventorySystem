@@ -40,7 +40,7 @@ public class EquipData : ItemData
     {
         string text = base.SetTipsText();
         string typeName = Constant.EquipTypeNames[(int)EqType];
-        text += string.Format("\n<color=navy>装备类型：{4}</color>\n<color=red>力量：{0}</color>\n<color=yellow>智力：{1}</color>\n<color=green>敏捷：{2}</color>\n<color=blue>耐力：{3}</color>", Strength, Intellect, Agility, Stamina, typeName);
+        text += string.Format("\n<color=lime>装备类型：{4}</color>\n<color=red>力量：{0}</color>\n<color=yellow>智力：{1}</color>\n<color=cyan>敏捷：{2}</color>\n<color=magenta>耐力：{3}</color>", Strength, Intellect, Agility, Stamina, typeName);
         return text;
     }
 

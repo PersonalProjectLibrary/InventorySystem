@@ -17,25 +17,40 @@ public class VendorPanel : InventoryPanel
         }
     }
     #endregion
+    public Player player { get; private set; }
     protected override void Init()
     {
         slotCount = Constant.VendorSlotCount;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         base.Init();
     }
     protected override void InstanticeSlot()
     {
-        for (int i = 0; i < slotCount; i++)
+        foreach(var good in Constant.VendorIdName)
         {
             GameObject slotGo = Instantiate(slotPrefab, slotParent);
+            slotGo.name = Constant.VendorIdName[good.Key];
             slotList.Add(slotGo.GetComponent<VendorSlot>());
-            VendorSlot slot = slotList[i] as VendorSlot;
-
-            int itemId = Constant.VendorId[i];
-            ItemData itemData = inventoryMgr.GetItemDataById(itemId);
+            ItemData itemData = inventoryMgr.GetItemDataById(good.Key);
+            VendorSlot slot = slotList[slotList.Count-1] as VendorSlot;
             slot.slotName.text = itemData.Name;
-            slotGo.name = string.Format($"{itemData.Name}Slot");
             slot.StoreItem(itemData);
-            slot.item.itemCountText.gameObject.SetActive(false);
+            slot.item.itemCountText.text = $"${slot.item.selfData.BuyPrice}";
         }
+    }
+    public void BuyItem(ItemData item)//商店格子被右键时执行，购买物品
+    {
+        if(player.ConsumeCoin(item.BuyPrice))
+        {
+            inventoryMgr.knapsackPanel.ObtainItem(item);
+        }
+    }
+    public void SellItem()//出售鼠标上的物品
+    {
+        Item item = inventoryMgr.PickedItem;
+        int sellCount =Input.GetKey(KeyCode.LeftShift)? 1 :item.ItemAmount;
+        int sellPrice = item.selfData.SellPrice*sellCount;
+        player.EarnCoin(sellPrice);
+        inventoryMgr.UpdateMousePickedCount(item.ItemAmount-sellCount);
     }
 }
