@@ -32,6 +32,7 @@ public class InventoryManager : MonoBehaviour
     public KnapsackPanel knapsackPanel{ get; private set; }
     public ChestPanel chestPanel{ get; private set; }
     public GearPanel gearPanel{ get; private set; }
+    public VendorPanel vendorPanel{ get; private set; }
     //物品信息提示框
     public InfoTips tips{ get; private set; }
     private bool isTipsShow = false;
@@ -44,52 +45,10 @@ public class InventoryManager : MonoBehaviour
         get { return isPicked; }
     }
 
-    private void InitInventoryMgr()
+    private void Awake()
     {
-        _instance = this;
-        tips = InfoTips.Instance;
-        knapsackPanel = KnapsackPanel.Instance;
-        chestPanel = ChestPanel.Instance;
-        gearPanel = GearPanel.Instance;
-        
-        canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
-        PickedItem = GameObject.Find("PickedItem").GetComponent<Item>();
-        PickedItem.Hide();
         InitItemDatas();
     }
-
-    private void Start()
-    {
-        InitInventoryMgr();
-    }
-
-    public void Update()
-    {
-        if (isTipsShow)
-        {
-            Vector2 position;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
-            tips.SetLocalPosition(position + Constant.TipsPosOffset);
-        }
-        if (isPicked)
-        {
-            Vector2 position;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
-            PickedItem.SetLocalPosition(position);
-        }
-        if (isPicked && Input.GetMouseButtonDown(0) && !MouseIsPointerOverUI(true))//物品丢弃处理
-        {
-            isPicked = false;
-            PickedItem.Hide();
-        }
-    }
-
-    //射线检测判断鼠标是否在UI上
-    private bool MouseIsPointerOverUI(bool isCheckTouch)
-    {
-        return isCheckTouch?EventSystem.current.IsPointerOverGameObject(-1):EventSystem.current.IsPointerOverGameObject();
-    }
-    
     private void InitItemDatas()
     {
         try
@@ -146,6 +105,49 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError($"解析发生错误：{e.Message}");
         }
     }
+    private void Start()
+    {
+        InitInventoryMgr();
+    }
+    private void InitInventoryMgr()
+    {
+        _instance = this;
+        tips = InfoTips.Instance;
+        knapsackPanel = KnapsackPanel.Instance;
+        chestPanel = ChestPanel.Instance;
+        gearPanel = GearPanel.Instance;
+        vendorPanel = VendorPanel.Instance;
+        
+        canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
+        PickedItem = GameObject.Find("PickedItem").GetComponent<Item>();
+        PickedItem.Hide();
+    }
+    public void Update()
+    {
+        if (isTipsShow)
+        {
+            Vector2 position;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
+            tips.SetLocalPosition(position + Constant.TipsPosOffset);
+        }
+        if (isPicked)
+        {
+            Vector2 position;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
+            PickedItem.SetLocalPosition(position);
+        }
+        if (isPicked && Input.GetMouseButtonDown(0) && !MouseIsPointerOverUI(true))//物品丢弃处理
+        {
+            isPicked = false;
+            PickedItem.Hide();
+        }
+    }
+    //射线检测判断鼠标是否在UI上
+    private bool MouseIsPointerOverUI(bool isCheckTouch)
+    {
+        return isCheckTouch?EventSystem.current.IsPointerOverGameObject(-1):EventSystem.current.IsPointerOverGameObject();
+    }
+    
     public ItemData GetItemDataById(int itemId)
     {
         if(!ItemDatas.ContainsKey(itemId))
@@ -155,7 +157,6 @@ public class InventoryManager : MonoBehaviour
         }
         return ItemDatas[itemId];
     }
-
     public void ShowItemTips(string info)
     {
         isTipsShow = true;
@@ -166,7 +167,6 @@ public class InventoryManager : MonoBehaviour
         isTipsShow = false;
         tips.Hide();
     }
-
     public void MousePickUpItem(Item item, int itemCount)
     {
         PickedItem.Init(item.selfData);

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GearPanel : Inventory
+public class GearPanel : InventoryPanel
 {
     #region 单例模式
     private static GearPanel _instance;

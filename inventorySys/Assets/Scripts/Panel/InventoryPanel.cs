@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 背包基类
 /// </summary>
-public class Inventory : MonoBehaviour
+public class InventoryPanel : MonoBehaviour
 {
     protected InventoryManager inventoryMgr;
     protected CanvasGroup canvasGroup;

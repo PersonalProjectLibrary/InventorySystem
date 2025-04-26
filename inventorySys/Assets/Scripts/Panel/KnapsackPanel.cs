@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// 背包
 /// </summary>
-public class KnapsackPanel : Inventory
+public class KnapsackPanel : InventoryPanel
 {
     #region 单例模式
     private static KnapsackPanel _instance;

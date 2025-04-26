@@ -31,6 +31,10 @@ public class Player : MonoBehaviour
         {
             inventoryMgr.gearPanel.SwitchDisplayState();
         }
+        else if(Input.GetKeyDown(KeyCode.V))
+        {
+            inventoryMgr.vendorPanel.SwitchDisplayState();
+        }
 
         // 按下I、E、W、M键，往背包添加一个随机物品
         if(inventoryMgr.knapsackPanel.CanvasGroup.alpha==Constant.ShowAlpha)

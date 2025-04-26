@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class ChestPanel : Inventory
+public class ChestPanel : InventoryPanel
 {
     #region 单例模式
     private static ChestPanel _instance;

@@ -17,6 +17,7 @@ public class Constant
     public static int KnapsackSlotCount = 20;
     public static int ChestSlotCount = 8;
     public static int GearSlotCount = 11;
+    public static int VendorSlotCount = 12;
 
     //物品信息
     public static string[] ItemTypeNames = { "消耗品", "装备","武器", "材料" };
@@ -24,7 +25,7 @@ public class Constant
     public static string[] QualityColors = { "white", "lime", "navy", "magenta", "orange", "red" };
     public static string[] WeaponTypeNames = { "空武器","副手", "主手"};
     public static string[] EquipTypeNames = { "空装备","头盔","项链","护肩", "胸甲", "戒指","护腕", "腰带", "副手", "护腿", "靴子" };
-
+    public static int[] VendorId = { 1, 2, 3, 5, 6, 7, 8, 9, 10, 15, 16, 17 };
     //物品大小动画数值
     public static Vector3 ItemDefaultScale = new Vector3(1, 1, 1);
     public static Vector3 ItemAnimationScale = new Vector3(1.5f, 1.5f, 1.5f);
