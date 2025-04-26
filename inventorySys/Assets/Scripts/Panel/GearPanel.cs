@@ -99,7 +99,7 @@ public class GearPanel : InventoryPanel
                 data.GetProperty(ref strength, ref intellect, ref agility, ref stamina);
             }
         }
-        player.GetProperty(ref strength, ref intellect, ref agility, ref stamina, ref damage);
+        player.AddBasicProperty(ref strength, ref intellect, ref agility, ref stamina, ref damage);
         propertyText.text = $"力量：{strength}\n智力：{intellect}\n敏捷：{agility}\n耐力：{stamina}\n攻击力：{damage}";
     }
 }
