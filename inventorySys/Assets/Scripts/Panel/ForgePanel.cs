@@ -1,5 +1,7 @@
 
 using UnityEngine;
+using Defective.JSON;
+using System.Collections.Generic;
 
 public class ForgePanel : InventoryPanel
 {
@@ -17,6 +19,41 @@ public class ForgePanel : InventoryPanel
         }
     }
     #endregion
+
+    private List<FormulaData> formulaDatas = new List<FormulaData>();
+    
+    public void Awake()
+    {
+        InitFormulaDatas();
+    }
+    private void InitFormulaDatas()
+    {
+        try
+        {
+            TextAsset formulaText = Resources.Load<TextAsset>("Formulas");
+            if (formulaText == null)
+            {
+                Debug.LogError("未能找到Formulas资源文件");
+                return;
+            }
+            string formulaJson = formulaText.text;
+            JSONObject j = new JSONObject(formulaJson);
+            foreach (JSONObject temp in j.list)
+            {
+                int item1ID = temp["Item1ID"].intValue;
+                int item1Amount = temp["Item1Amount"].intValue;
+                int item2ID = temp["Item2ID"].intValue;
+                int item2Amount = temp["Item2Amount"].intValue;
+                int resID = temp["ResID"].intValue;
+                formulaDatas.Add(new FormulaData(item1ID, item1Amount, item2ID, item2Amount, resID));
+                Debug.Log(resID);
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"解析发生错误：{e.Message}");
+        }
+    }
 
     protected override void Init()
     {

@@ -14,11 +14,7 @@ public class ItemData
     public int SellPrice{get; set;}
     public string Sprite{get; set;}
 
-    public ItemData()
-    {
-        ID = -1;
-    }
-
+    public ItemData() { ID = -1; }
     public ItemData(int id, string name, ItemType type, ItemQuality quality, string des, int capacity, int buyPrice, int sellPrice, string sprite)
     {
         ID = id;

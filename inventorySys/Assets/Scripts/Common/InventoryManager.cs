@@ -41,10 +41,7 @@ public class InventoryManager : MonoBehaviour
     //当前选中的物品
     public Item PickedItem{ get; private set; }
     private bool isPicked = false;
-    public bool IsPicked
-    {
-        get { return isPicked; }
-    }
+    public bool IsPicked { get { return isPicked; } }
 
     private void Awake()
     {
@@ -106,6 +103,7 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError($"解析发生错误：{e.Message}");
         }
     }
+
     private void Start()
     {
         InitMgr();
@@ -124,6 +122,7 @@ public class InventoryManager : MonoBehaviour
         PickedItem = GameObject.Find("PickedItem").GetComponent<Item>();
         PickedItem.Hide();
     }
+    
     public void Update()
     {
         if (isTipsShow)
@@ -144,8 +143,7 @@ public class InventoryManager : MonoBehaviour
             PickedItem.Hide();
         }
     }
-    //射线检测判断鼠标是否在UI上
-    private bool MouseIsPointerOverUI(bool isCheckTouch)
+    private bool MouseIsPointerOverUI(bool isCheckTouch)//射线检测判断鼠标是否在UI上
     {
         return isCheckTouch?EventSystem.current.IsPointerOverGameObject(-1):EventSystem.current.IsPointerOverGameObject();
     }
