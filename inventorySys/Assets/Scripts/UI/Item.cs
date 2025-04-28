@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class Item : MonoBehaviour
 {
     public Text itemCountText;
-    public ItemData selfData{ get; set; }
-    public int ItemAmount{ get; set; }
+    public ItemData selfData{ get; private set; }
+    public int ItemAmount{ get; private set; }
 
     private Vector3 targetScale = Constant.ItemDefaultScale;
     
