@@ -17,11 +17,23 @@ public class Player : MonoBehaviour
     public BasicProperty basicProperty = new BasicProperty();
     private int coinAmount = 100;
     private Text coinText;
+    public int Coin
+    {
+        get
+        {
+            return coinAmount;
+        }
+        set
+        {
+            coinAmount = value;
+            UpdateCoinShow();
+        }
+    }
 
     void Start()
     {
         coinText = GameObject.Find("Coin").GetComponentInChildren<Text>();
-        UpdateCoin();
+        UpdateCoinShow();
     }
     void Update()
     {
@@ -59,22 +71,24 @@ public class Player : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.V))inventoryMgr.vendorPanel.SwitchDisplayState();
         else if(Input.GetKeyDown(KeyCode.F))inventoryMgr.forgePanel.SwitchDisplayState();
     }
-    private void UpdateCoin()
-    {
-        coinText.text = coinAmount.ToString();
-    }
+    
     public bool ConsumeCoin(int amount)
     {
         if(amount>coinAmount||amount<0)return false;
         coinAmount -= amount;
-        UpdateCoin();
+        UpdateCoinShow();
         return true;
     }
     public void EarnCoin(int amount)
     {
         coinAmount += amount;
-        UpdateCoin();
+        UpdateCoinShow();
     }
+    private void UpdateCoinShow()
+    {
+        coinText.text = coinAmount.ToString();
+    }
+    
     public void AddBasicProperty(ref int strength, ref int intellect, ref int agility, ref int stamina, ref int damage)
     {
         strength += basicProperty.strength;

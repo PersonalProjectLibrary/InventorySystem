@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public class InventoryPanel : MonoBehaviour
 {
+    public Player player{ get; private set; }
     protected InventoryManager inventoryMgr;
     protected CanvasGroup canvasGroup;
     public CanvasGroup CanvasGroup
@@ -38,6 +39,7 @@ public class InventoryPanel : MonoBehaviour
     }
     protected virtual void Init()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         inventoryMgr = InventoryManager.Instance;
         canvasGroup = GetComponent<CanvasGroup>();
         //清除slotParent下面的子物体

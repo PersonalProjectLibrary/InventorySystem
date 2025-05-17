@@ -203,6 +203,7 @@ public class InventoryManager : MonoBehaviour
         gearPanel.SaveInventory();
         //vendorPanel.SaveInventory();//商店不需要保存
         forgePanel.SaveInventory();
+        PlayerPrefs.SetInt("CoinAmount",vendorPanel.player.Coin);//保存金币数据
     }
     public void LoadInventory()
     {
@@ -211,5 +212,9 @@ public class InventoryManager : MonoBehaviour
         gearPanel.LoadInventory();
         //vendorPanel.LoadInventory();//商店不需要更新加载
         forgePanel.LoadInventory();
+        if(PlayerPrefs.HasKey("CoinAmount"))//更新金币数据
+        {
+            vendorPanel.player.Coin = PlayerPrefs.GetInt("CoinAmount");
+        }
     }
 }

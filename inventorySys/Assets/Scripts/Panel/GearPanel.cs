@@ -18,14 +18,13 @@ public class GearPanel : InventoryPanel
         }
     }
     #endregion
-
-    private Player player;
+    
     public Text propertyText;
 
     protected override void Init()
     {
         slotCount = Constant.GearSlotCount;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        
         base.Init();
     }
     protected override void InstanticeSlot()

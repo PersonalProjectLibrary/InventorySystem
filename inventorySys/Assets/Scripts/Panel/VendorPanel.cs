@@ -17,11 +17,10 @@ public class VendorPanel : InventoryPanel
         }
     }
     #endregion
-    public Player player { get; private set; }
+
     protected override void Init()
     {
         slotCount = Constant.VendorSlotCount;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         base.Init();
     }
     protected override void InstanticeSlot()
