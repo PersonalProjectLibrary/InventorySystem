@@ -185,6 +185,11 @@ public class InventoryManager : MonoBehaviour
 
         isTipsShow = false;
         tips.Hide();
+
+        //优化：拾取物品时，物品移动到鼠标上，避免显示突兀的问题，
+        Vector2 position;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, Input.mousePosition, null, out position);
+        PickedItem.SetLocalPosition(position);
     }
     public void UpdateMousePickedCount(int count)
     {
@@ -204,6 +209,7 @@ public class InventoryManager : MonoBehaviour
         //vendorPanel.SaveInventory();//商店不需要保存
         forgePanel.SaveInventory();
         PlayerPrefs.SetInt("CoinAmount",vendorPanel.player.Coin);//保存金币数据
+        Debug.Log("保存成功");
     }
     public void LoadInventory()
     {
@@ -216,5 +222,6 @@ public class InventoryManager : MonoBehaviour
         {
             vendorPanel.player.Coin = PlayerPrefs.GetInt("CoinAmount");
         }
+        Debug.Log("加载成功");
     }
 }
