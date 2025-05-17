@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 /// <summary>
@@ -27,7 +28,8 @@ public class InventoryPanel : MonoBehaviour
     protected List<Slot> slotList=new List<Slot>();
     
     private float targetAlpha;
-
+    
+    #region Init Panel
     public void Start()
     {
         Init();
@@ -52,7 +54,9 @@ public class InventoryPanel : MonoBehaviour
             slotList.Add(slotGo.GetComponent<Slot>());
         }
     }
+    #endregion
 
+    #region Panel Control
     private void Update()
     {
         if (canvasGroup.alpha != targetAlpha)
@@ -76,16 +80,12 @@ public class InventoryPanel : MonoBehaviour
     }
     public void SwitchDisplayState()
     {
-        if (canvasGroup.alpha == Constant.ShowAlpha)
-        {
-            Hide();
-        }
-        else
-        {
-            Show();
-        }
+        if (canvasGroup.alpha == Constant.ShowAlpha)Hide();
+        else Show();
     }
+    #endregion
 
+    #region Item And  Slot
     public bool ObtainItem(int itemId)
     {
         ItemData itemData = inventoryMgr.GetItemDataById(itemId);
@@ -131,10 +131,7 @@ public class InventoryPanel : MonoBehaviour
     {
         foreach (Slot slot in slotList)
         {
-            if (slot.IsEmpty())
-            {
-                return slot;
-            }
+            if (slot.IsEmpty())return slot;
         }
         return null;
     }
@@ -150,5 +147,48 @@ public class InventoryPanel : MonoBehaviour
         }
         return null;
     }
+    #endregion
 
+    #region Save and Load
+    public void SaveInventory()
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (Slot slot in slotList)
+        {
+            if (slot.IsEmpty())
+            {
+                sb.Append("-1:0|");
+                continue;
+            }
+            sb.Append(slot.item.selfData.ID + ":" + slot.item.ItemAmount + "|");
+        }
+        //sb.Remove(sb.Length - 1, 1);//法一：删除最后一个|，避免解析字符串分隔时，数组最后多个空字符串
+        PlayerPrefs.SetString(name, sb.ToString());//默认在OnApplicationQuit()时自动保存
+        PlayerPrefs.Save();//立即保存，避免以外退出时未触发自动保存，导致数据丢失
+        //Debug.Log($"{name}的物品{sb}保存完毕");
+    }
+    public void LoadInventory()
+    {
+        if(!PlayerPrefs.HasKey(name))return;
+        string[] itemStrings = PlayerPrefs.GetString(name).Split('|');
+        //for (int i = 0; i < itemStrings.Length; i++)
+        for (int i = 0; i < itemStrings.Length - 1; i++)//法二：不解析按‘|’切割字符串，数组额外多出来的空字符
+        {
+            string[] itemString = itemStrings[i].Split(':');
+            if (itemString[0] == "-1")
+            {
+                if(!slotList[i].IsEmpty())//避免保存后，往空格子放物品，导致加载旧数据，空格子依旧有物品，未还原
+                {
+                    slotList[i].ClearItem();
+                }
+                continue;
+            }
+            int itemId = int.Parse(itemString[0]);
+            int itemCount = int.Parse(itemString[1]);
+            ItemData itemData = inventoryMgr.GetItemDataById(itemId);
+            slotList[i].StoreItem(itemData, itemCount);
+        }
+        //Debug.Log($"{name}的物品{PlayerPrefs.GetString(name)}加载完毕");
+    }
+    #endregion
 }

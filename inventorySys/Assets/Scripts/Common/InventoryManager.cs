@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Defective.JSON;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// 物品管理类
@@ -42,6 +43,9 @@ public class InventoryManager : MonoBehaviour
     public Item PickedItem{ get; private set; }
     private bool isPicked = false;
     public bool IsPicked { get { return isPicked; } }
+    //保存和加载
+    private Button saveBtn;
+    private Button loadBtn;
 
     private void Awake()
     {
@@ -121,6 +125,11 @@ public class InventoryManager : MonoBehaviour
         canvasRect = GameObject.Find("Canvas").GetComponent<Canvas>().transform as RectTransform;
         PickedItem = GameObject.Find("PickedItem").GetComponent<Item>();
         PickedItem.Hide();
+
+        saveBtn = GameObject.Find("SaveBtn").GetComponent<Button>();
+        saveBtn.onClick.AddListener(() => SaveInventory());
+        loadBtn = GameObject.Find("LoadBtn").GetComponent<Button>();
+        loadBtn.onClick.AddListener(() => LoadInventory());
     }
     
     public void Update()
@@ -185,5 +194,22 @@ public class InventoryManager : MonoBehaviour
             PickedItem.Hide();
         }
         else PickedItem.UpdateAmount(count);
+    }
+
+    public void SaveInventory()
+    {
+        knapsackPanel.SaveInventory();
+        chestPanel.SaveInventory();
+        gearPanel.SaveInventory();
+        //vendorPanel.SaveInventory();//商店不需要保存
+        forgePanel.SaveInventory();
+    }
+    public void LoadInventory()
+    {
+        knapsackPanel.LoadInventory();
+        chestPanel.LoadInventory();
+        gearPanel.LoadInventory();
+        //vendorPanel.LoadInventory();//商店不需要更新加载
+        forgePanel.LoadInventory();
     }
 }

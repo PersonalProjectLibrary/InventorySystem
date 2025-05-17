@@ -156,7 +156,13 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     public virtual void ClearItem()
     {
         item = null;
-        if(itemGo != null)Destroy(itemGo);//左键拾取物品，如果使用立即销毁，会行为异常
+        if(itemGo != null)
+        {
+            //Destroy(itemGo);//左键拾取物品，如果使用立即销毁，会行为异常
+            GameObject tempGo = itemGo;
+            itemGo = null;//立即置空物品，避免因Destory的延迟销毁，使物品未及时销毁导致后续加载错误
+            Destroy(tempGo);//销毁旧物品
+        }
     }
     
     protected void MousePickItem(int count = 1)
